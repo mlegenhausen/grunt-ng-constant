@@ -24,7 +24,7 @@ In your project's Gruntfile, add a section named `ngconstant` to the data object
 
 ```js
 grunt.initConfig({
-  ng_constant: {
+  ngconstant: {
     options: {
       // Task-specific options go here.
     },
