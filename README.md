@@ -98,12 +98,13 @@ grunt.initConfig({
 })
 ```
 
-The resulting module look like the following:
+The resulting module looks like the following:
 
 ```
-angular.module("module2", ["dep1", "dep2"])
+angular.module("someModule", ["dep1", "dep2"])
 
-.constant("constant1", "some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify")
+.constant("constant1", "some value you want to set as constant value.
+  This can be of any type that can be transformed via JSON.stringify")
 
 .constant("constant2", {
   "key1": "value1",
