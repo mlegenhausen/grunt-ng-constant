@@ -98,6 +98,21 @@ grunt.initConfig({
 })
 ```
 
+The resulting module look like the following:
+
+```
+angular.module("module2", ["dep1", "dep2"])
+
+.constant("constant1", "some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify")
+
+.constant("constant2", {
+  "key1": "value1",
+  "key2": 42
+})
+
+;
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 

@@ -40,6 +40,11 @@
     "grunt": "~0.4.1"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "angular",
+    "angularjs",
+    "constants",
+    "module",
+    "generator"
   ]
 }
