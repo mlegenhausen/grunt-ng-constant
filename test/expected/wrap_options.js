@@ -1,5 +1,5 @@
-define( ["angular", "ngResource", "ngCookies"], function() { 
- return angular.module("module2", ["test"])
+(function(angular, undefined) {
+	 angular.module("module2", ["test"])
 
 .constant("constant1", {
 	"key1": 123,
@@ -8,5 +8,4 @@ define( ["angular", "ngResource", "ngCookies"], function() {
 })
 
 ; 
-
-});
+})(angular);

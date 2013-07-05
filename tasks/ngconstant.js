@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 
     var options = this.options({
       space: '\t',
-      deps: []
+      deps: [],
+      wrap: '(function(angular, undefined) {\n\t $crumb \n})(angular);'
     });
     var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
     var compiler = ejs.compile(template);
@@ -37,7 +38,11 @@ module.exports = function(grunt) {
       });
 
       if (module.wrap) {
-        result = module.wrap.replace('\$crumb', result);
+        // var crump = ejs.compile(module.wrap);
+        // result = crump({
+        //   __module: result
+        // })
+        result = ((typeof module.wrap == "string") ? module.wrap : options.wrap).replace('\$crumb', result);
       }
 
       grunt.file.write(module.dest, result);

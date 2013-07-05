@@ -53,5 +53,14 @@ exports.ng_constant = {
     test.equal(actual, expected, 'should describe what the default behavior is.');
 
     test.done();
+  },
+  custom_wrap_options: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/custom_wrap_options.js');
+    var expected = grunt.file.read('test/expected/custom_wrap_options.js');
+    test.equal(actual, expected, 'should describe what the default behavior is.');
+
+    test.done();
   }  
 };
