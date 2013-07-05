@@ -49,6 +49,12 @@ Default value: `[]`
 
 An array that specifies the default dependencies a module should have. When your module should not have any modules, so you can append the constants to an already existing one, you can set `deps` to `false`.
 
+#### options.wrap
+Type: `String`
+Optional
+
+A string who will wrap the result of file, use $crumb to indicate the content.
+
 
 ### Usage Examples
 
@@ -114,6 +120,49 @@ angular.module("someModule", ["dep1", "dep2"])
 ;
 ```
 
+#### Wrap Option
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      space: ' ',
+      deps: ['dep1', 'dep2']
+    },
+    dist: [
+      {
+        dest: 'tmp/wrap_options.js',
+        name: 'module2',
+        deps: ['test'],
+        wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return $crumb \n\n});',
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
+          }
+        }
+      }
+    ]
+  },
+})
+```
+The resulting module looks like the following:
+
+```
+define( ["angular", "ngResource", "ngCookies"], function() { 
+ return angular.module("module2", ["test"])
+
+.constant("constant1", {
+  "key1": 123,
+  "key2": "value2",
+  "foobar": false
+})
+
+; 
+
+});
+```
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 

@@ -58,6 +58,21 @@ module.exports = function(grunt) {
             }
           }
         }
+      ],
+      wrap_options: [
+        {
+          dest: 'tmp/wrap_options.js',
+          name: 'module2',
+          deps: ['test'],
+          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return $crumb \n\n});',
+          constants: {
+            'constant1': {
+              key1: 123,
+              key2: 'value2',
+              foobar: false
+            }
+          }
+        }
       ]
     },
 

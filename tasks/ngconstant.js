@@ -35,6 +35,11 @@ module.exports = function(grunt) {
         deps: module.deps || options.deps,
         constants: constants
       });
+
+      if (module.wrap) {
+        result = module.wrap.replace('\$crumb', result);
+      }
+
       grunt.file.write(module.dest, result);
       grunt.log.writeln('Module ' + module.name + ' created at ' + module.dest);
     });
