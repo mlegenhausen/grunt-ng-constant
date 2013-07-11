@@ -41,7 +41,7 @@ grunt.initConfig({
 Type: `String`
 Default value: `'\t'`
 
-A string that defines how the `JSON.stringify` method will prettify your code. You can get more information in the (MDN Documentation)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify].
+A string that defines how the `JSON.stringify` method will prettify your code. You can get more information in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify).
 
 #### options.deps
 Type: `Array` or `Boolean`
