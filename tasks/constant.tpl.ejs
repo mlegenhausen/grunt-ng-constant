@@ -1,5 +1,5 @@
 angular.module("<%= moduleName %>"<% if (deps) { %>, <%- JSON.stringify(deps) %><% } %>)
 <% constants.forEach(function(constant) { %>
-.constant("<%= constant.name %>", <%- JSON.stringify(constant.value, null, space) %>)
+.constant("<%= constant.name %>", <%- constant.value %>)
 <% }) %>
 ;

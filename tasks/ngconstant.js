@@ -8,6 +8,8 @@
 
 'use strict';
 
+var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
+
 module.exports = function(grunt) {
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function() {
     var path = require('path');
@@ -17,33 +19,38 @@ module.exports = function(grunt) {
     var options = this.options({
       space: '\t',
       deps: [],
-      wrap: '(function(angular, undefined) {\n\t $crumb \n})(angular);'
+      wrap: false
     });
     var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
     var compiler = ejs.compile(template);
+    var rawOptions = grunt.config.getRaw(this.name);
+    var rawData = grunt.config.getRaw(this.name + '.' + this.target);
 
-    _.each(this.data, function(module) {
+    _.each(this.data, function(module, index) {
       var constants = _.map(module.constants, function(value, name) {
         return {
           name: name,
-          value: value
+          value: JSON.stringify(value, null, options.space)
         };
       });
 
+      // Create the module string
       var result = compiler({
-        space: options.space || '\t',
         moduleName: module.name,
         deps: module.deps || options.deps,
         constants: constants
       });
 
-      if (module.wrap) {
-        // var crump = ejs.compile(module.wrap);
-        // result = crump({
-        //   __module: result
-        // })
-        result = ((typeof module.wrap == "string") ? module.wrap : options.wrap).replace('\$crumb', result);
+      // Handle wrapping
+      var wrap = rawData[index].wrap || rawOptions.wrap || '<%= __ngModule %>';
+      if (wrap === true) {
+        wrap = DEFAULT_WRAP;
       }
+      result = grunt.template.process(wrap, {
+        data: _.extend(grunt.config(), {
+          '__ngModule': result
+        })
+      });
 
       grunt.file.write(module.dest, result);
       grunt.log.writeln('Module ' + module.name + ' created at ' + module.dest);

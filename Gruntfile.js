@@ -79,7 +79,7 @@ module.exports = function(grunt) {
           dest: 'tmp/custom_wrap_options.js',
           name: 'module2',
           deps: ['test'],
-          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return $crumb \n\n});',
+          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return <%= __ngModule %> \n\n});',
           constants: {
             'constant1': {
               key1: 123,
@@ -94,8 +94,7 @@ module.exports = function(grunt) {
     // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js'],
-    },
-
+    }
   });
 
   // Actually load this plugin's task(s).

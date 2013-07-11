@@ -51,9 +51,10 @@ An array that specifies the default dependencies a module should have. When your
 
 #### options.wrap
 Type: `String` or `Boolean`
+Default value: `false`
 Optional
 
-A string who will wrap the result of file, use $crumb to indicate the content.
+A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `__ngModule` variable to indicate the content.
 
 
 ### Usage Examples
@@ -122,6 +123,8 @@ angular.module("someModule", ["dep1", "dep2"])
 
 #### Wrap Option
 
+The `wrap` option allows you to encapsulate the module in a closure. Simply set `wrap` to `true`.
+
 ```js
 grunt.initConfig({
   ngconstant: {
@@ -134,7 +137,7 @@ grunt.initConfig({
         dest: 'tmp/wrap_options.js',
         name: 'module2',
         deps: ['test'],
-        wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return $crumb \n\n});',
+        wrap: true,
         constants: {
           'constant1': {
             key1: 123,
@@ -147,6 +150,55 @@ grunt.initConfig({
   },
 })
 ```
+
+The resulting module looks like:
+
+```js
+(function(angular, undefined) {
+   angular.module("module2", ["test"])
+
+.constant("constant1", {
+  "key1": 123,
+  "key2": "value2",
+  "foobar": false
+})
+
+; 
+})(angular);
+```
+
+#### Custom Wrap Option
+
+If you want to use another wrapping you can use a string as `wrap` option, which is interpolated by the plugin. Use the `__ngModule` variable as placeholder for the generated module.
+
+Here a RequireJS example:
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      space: ' ',
+      deps: ['dep1', 'dep2']
+    },
+    dist: [
+      {
+        dest: 'tmp/wrap_options.js',
+        name: 'module2',
+        deps: ['test'],
+        wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return <%= __ngModule %> \n\n});',
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
+          }
+        }
+      }
+    ]
+  },
+})
+```
+
 The resulting module looks like the following:
 
 ```
@@ -163,6 +215,7 @@ define( ["angular", "ngResource", "ngCookies"], function() {
 
 });
 ```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
