@@ -1,7 +1,7 @@
 {
   "name": "grunt-ng-constant",
   "description": "Plugin for dynamic generation of angular constant modules.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/werk85/grunt-ng-constant",
   "author": {
     "name": "Malte Legenhausen",
