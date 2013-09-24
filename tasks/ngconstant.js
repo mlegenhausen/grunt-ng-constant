@@ -19,7 +19,6 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
     var path = require('path');
-    var ejs = require('ejs');
 
     var options = this.options({
       space: '\t',
@@ -27,7 +26,7 @@ module.exports = function (grunt) {
       wrap: false
     });
     var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
-    var compiler = ejs.compile(template);
+    var compiler = _.template(template);
     var rawOptions = grunt.config.getRaw(this.name);
     var rawData = toArray(grunt.config.getRaw(this.name + '.' + this.target));
 
