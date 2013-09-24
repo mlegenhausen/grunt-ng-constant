@@ -10,51 +10,54 @@
 
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
 
-module.exports = function(grunt) {
-  grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function() {
-    var path = require('path');
-    var ejs = require('ejs');
-    var _ = grunt.util._;
+module.exports = function (grunt)
+{
+	grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function ()
+	{
+		var path = require('path');
+		var ejs = require('ejs');
+		var _ = grunt.util._;
 
-    var options = this.options({
-      space: '\t',
-      deps: [],
-      wrap: false
-    });
-    var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
-    var compiler = ejs.compile(template);
-    var rawOptions = grunt.config.getRaw(this.name);
-    var rawData = grunt.config.getRaw(this.name + '.' + this.target);
+		var options = this.options({
+			space: '\t',
+			deps: [],
+			wrap: false
+		});
+		var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
+		var compiler = ejs.compile(template);
+		var rawOptions = grunt.config.getRaw(this.name);
+		var rawData = grunt.config.getRaw(this.name + '.' + this.target);
 
-    _.each(this.data, function(module, index) {
-      var constants = _.map(module.constants, function(value, name) {
-        return {
-          name: name,
-          value: JSON.stringify(value, null, options.space)
-        };
-      });
+		var constants = _.map(this.data.constants, function (value, name)
+		{
+			return {
+				name: name,
+				value: JSON.stringify(value, null, options.space)
+			};
+		});
 
-      // Create the module string
-      var result = compiler({
-        moduleName: module.name,
-        deps: module.deps || options.deps,
-        constants: constants
-      });
+		// Create the module string
+		var result = compiler({
+			moduleName: this.data.name,
+			deps: this.data.deps || options.deps,
+			constants: constants
+		});
 
-      // Handle wrapping
-      var wrap = rawData[index].wrap || rawOptions.wrap || '<%= __ngModule %>';
-      if (wrap === true) {
-        wrap = DEFAULT_WRAP;
-      }
-      result = grunt.template.process(wrap, {
-        data: _.extend(grunt.config(), {
-          '__ngModule': result
-        })
-      });
+		// Handle wrapping
+		var wrap = rawData.wrap || rawOptions.wrap || '<%= __ngModule %>';
+		if (wrap === true)
+		{
+			wrap = DEFAULT_WRAP;
+		}
+		result = grunt.template.process(wrap, {
+			data: _.extend(grunt.config(), {
+				'__ngModule': result
+			})
+		});
 
-      grunt.file.write(module.dest, result);
-      grunt.log.writeln('Module ' + module.name + ' created at ' + module.dest);
-    });
-    grunt.log.ok();
-  });
+		grunt.log.writeln('Writing ' + this.data.name + ' to ' + this.data.dest);
+		grunt.file.write(this.data.dest, result);
+		grunt.log.writeln('Created ' + this.data.name);
+		grunt.log.ok();
+	});
 };
