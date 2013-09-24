@@ -10,11 +10,16 @@
 
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
 
-module.exports = function(grunt) {
-  grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function() {
+module.exports = function (grunt) {
+  var _ = grunt.util._;
+
+  function toArray(value) {
+    return _.isArray(value) ? value : [value];
+  }
+
+  grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
     var path = require('path');
     var ejs = require('ejs');
-    var _ = grunt.util._;
 
     var options = this.options({
       space: '\t',
@@ -24,10 +29,10 @@ module.exports = function(grunt) {
     var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
     var compiler = ejs.compile(template);
     var rawOptions = grunt.config.getRaw(this.name);
-    var rawData = grunt.config.getRaw(this.name + '.' + this.target);
+    var rawData = toArray(grunt.config.getRaw(this.name + '.' + this.target));
 
-    _.each(this.data, function(module, index) {
-      var constants = _.map(module.constants, function(value, name) {
+    toArray(this.data).forEach(function (module, index) {
+      var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
           value: JSON.stringify(value, null, options.space)

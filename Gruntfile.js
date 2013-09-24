@@ -88,7 +88,17 @@ module.exports = function(grunt) {
             }
           }
         }
-      ]
+      ],
+      simple_default_options: {
+        dest: 'tmp/simple_default_options.js',
+        name: 'module1',
+        constants: {
+          'constant1': {
+            key1: 'value1',
+            key2: 'value2'
+          }
+        }
+      }
     },
 
     // Unit tests.
