@@ -242,4 +242,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * v0.4.3 - Single constant option added. ejs dependency removed.
  * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
