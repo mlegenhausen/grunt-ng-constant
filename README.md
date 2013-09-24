@@ -28,11 +28,11 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: [
+    your_target: {
       // Target-specific module configurations.
-    ],
-  },
-})
+    }
+  }
+});
 ```
 
 ### Options
@@ -65,17 +65,15 @@ In this example I convert the package.json information in an angular module. So 
 ```js
 grunt.initConfig({
   ngconstant: {
-    dist: [
-      {
-        dest: 'dist/constants.js',
-        name: 'constants',
-        constants: {
-          package: grunt.file.readJSON('package.json')
-        }
+    dist: {
+      dest: 'dist/constants.js',
+      name: 'constants',
+      constants: {
+        package: grunt.file.readJSON('package.json')
       }
-    ]
-  },
-})
+    }
+  }
+});
 ```
 
 #### Custom Options
@@ -88,21 +86,19 @@ grunt.initConfig({
       space: ' ',
       deps: ['dep1', 'dep2']
     },
-    dist: [
-      {
-        dest: 'dist/module.js',
-        name: 'someModule',
-        constants: {
-          'constant1': 'some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify',
-          'constant2': {
-            'key1': 'value1',
-            'key2': 42
-          }
+    dist: {
+      dest: 'dist/module.js',
+      name: 'someModule',
+      constants: {
+        'constant1': 'some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify',
+        'constant2': {
+          'key1': 'value1',
+          'key2': 42
         }
       }
-    ]
-  },
-})
+    }
+  }
+});
 ```
 
 The resulting module looks like the following:
@@ -132,21 +128,19 @@ grunt.initConfig({
       space: ' ',
       deps: ['dep1', 'dep2']
     },
-    dist: [
-      {
-        dest: 'tmp/wrap_options.js',
-        name: 'module2',
-        deps: ['test'],
-        wrap: true,
-        constants: {
-          'constant1': {
-            key1: 123,
-            key2: 'value2',
-            foobar: false
-          }
+    dist: {
+      dest: 'tmp/wrap_options.js',
+      name: 'module2',
+      deps: ['test'],
+      wrap: true,
+      constants: {
+        'constant1': {
+          key1: 123,
+          key2: 'value2',
+          foobar: false
         }
       }
-    ]
+    }
   },
 })
 ```
@@ -180,21 +174,19 @@ grunt.initConfig({
       space: ' ',
       deps: ['dep1', 'dep2']
     },
-    dist: [
-      {
-        dest: 'tmp/wrap_options.js',
-        name: 'module2',
-        deps: ['test'],
-        wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return <%= __ngModule %> \n\n});',
-        constants: {
-          'constant1': {
-            key1: 123,
-            key2: 'value2',
-            foobar: false
-          }
+    dist: {
+      dest: 'tmp/wrap_options.js',
+      name: 'module2',
+      deps: ['test'],
+      wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return <%= __ngModule %> \n\n});',
+      constants: {
+        'constant1': {
+          key1: 123,
+          key2: 'value2',
+          foobar: false
         }
       }
-    ]
+    }
   },
 })
 ```
