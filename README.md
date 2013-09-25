@@ -28,9 +28,11 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: [
+    your_target: {
       // Target-specific module configurations.
-    ],
+      // This can be an array if you want to define multiple modules for a single target
+      // See the "Multiple Module Option" for further informations.
+    },
   },
 })
 ```
@@ -54,7 +56,7 @@ Type: `String` or `Boolean`
 Default value: `false`
 Optional
 
-A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `__ngModule` variable to indicate the content.
+A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 
 ### Usage Examples
