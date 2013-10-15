@@ -8,7 +8,10 @@
 
 'use strict';
 
+var path = require('path');
+
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
+var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 
 module.exports = function (grunt) {
   var _ = grunt.util._;
@@ -22,14 +25,12 @@ module.exports = function (grunt) {
   }
 
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
-    var path = require('path');
-
     var options = this.options({
       space: '\t',
       deps: [],
       wrap: false
     });
-    var template = grunt.file.read(path.join(__dirname, 'constant.tpl.ejs'));
+    var template = grunt.file.read(TEMPLATE_PATH);
     var compiler = _.template(template);
     var rawOptions = grunt.config.getRaw(this.name);
     var rawData = toArray(grunt.config.getRaw(this.name + '.' + this.target));
