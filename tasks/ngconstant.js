@@ -17,6 +17,10 @@ module.exports = function (grunt) {
     return _.isArray(value) ? value : [value];
   }
 
+  function stringify(value, space) {
+    return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
+  }
+
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
     var path = require('path');
 
@@ -34,7 +38,7 @@ module.exports = function (grunt) {
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
-          value: JSON.stringify(value, null, options.space)
+          value: stringify(value, options.space)
         };
       });
 

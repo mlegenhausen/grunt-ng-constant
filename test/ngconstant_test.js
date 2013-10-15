@@ -28,7 +28,7 @@ exports.ng_constant = {
 
     var actual = grunt.file.read('tmp/default_options.js');
     var expected = grunt.file.read('test/expected/default_options.js');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    test.equal(actual, expected, 'should create a constants module constant1');
 
     test.done();
   },

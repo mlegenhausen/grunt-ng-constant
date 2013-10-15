@@ -5,4 +5,6 @@ angular.module("module1", [])
 	"key2": "value2"
 })
 
+.constant("constant2", undefined)
+
 ;
