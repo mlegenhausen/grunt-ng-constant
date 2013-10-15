@@ -31,7 +31,12 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     ngconstant: {
       options: {
-        space: '\t'
+        space: '\t',
+        constants: {
+          'constant1': {
+            global_key: 'global_value'
+          }
+        }
       },
       default_options: [
         {

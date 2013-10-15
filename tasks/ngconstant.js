@@ -28,14 +28,21 @@ module.exports = function (grunt) {
     var options = this.options({
       space: '\t',
       deps: [],
-      wrap: false
+      wrap: false,
+      constants: {}
     });
     var template = grunt.file.read(TEMPLATE_PATH);
     var compiler = _.template(template);
     var rawOptions = grunt.config.getRaw(this.name);
     var rawData = toArray(grunt.config.getRaw(this.name + '.' + this.target));
+    var modules = toArray(this.data);
 
-    toArray(this.data).forEach(function (module, index) {
+    // Merge global configuration in first module
+    if (modules.length) {
+      _.merge(modules[0].constants, options.constants);
+    }
+
+    modules.forEach(function (module, index) {
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
