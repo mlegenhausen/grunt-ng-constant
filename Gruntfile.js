@@ -106,6 +106,12 @@ module.exports = function(grunt) {
     // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js'],
+    },
+
+    bump: {
+      options: {
+        pushTo: 'origin'
+      }
     }
   });
 
