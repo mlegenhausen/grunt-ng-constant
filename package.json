@@ -44,5 +44,9 @@
     "constants",
     "module",
     "generator"
-  ]
+  ],
+  "dependencies": {
+    "js2coffee": "~0.2.3",
+    "lodash": "~2.2.1"
+  }
 }

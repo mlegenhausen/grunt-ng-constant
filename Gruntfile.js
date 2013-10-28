@@ -105,7 +105,23 @@ module.exports = function(grunt) {
           },
           'constant2': undefined
         }
-      }
+      },
+      coffee_options: [
+        {
+          options: {
+            coffee: true
+          },
+          dest: 'tmp/coffee_options.coffee',
+          name: 'module1',
+          constants: {
+            'constant1': {
+              key1: 'value1',
+              key2: 'value2'
+            },
+            'constant2': undefined
+          }
+        }
+      ]
     },
 
     // Unit tests.
