@@ -58,6 +58,12 @@ Optional
 
 A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
+#### options.coffee
+Type: `Boolean`
+Default value: `false`
+Optional
+
+A boolean to toggle coffeescript output instead of javascript, using [`js2coffee`](https://github.com/rstacruz/js2coffee). Can also be assigned on a per-target basis.
 
 ### Usage Examples
 
@@ -69,6 +75,26 @@ grunt.initConfig({
   ngconstant: {
     dist: {
       dest: 'dist/constants.js',
+      name: 'constants',
+      constants: {
+        package: grunt.file.readJSON('package.json')
+      }
+    }
+  },
+})
+```
+
+#### Default Options, Coffeescript
+Same as above example, but outputs coffeescript instead
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      coffee: true
+    },
+    dist: {
+      dest: 'dist/constants.coffee',
       name: 'constants',
       constants: {
         package: grunt.file.readJSON('package.json')

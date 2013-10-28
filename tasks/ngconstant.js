@@ -14,7 +14,7 @@ var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(a
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 
 module.exports = function (grunt) {
-  var _ = grunt.util._;
+  var _ = require('lodash');
 
   function toArray(value) {
     return _.isArray(value) ? value : [value];
@@ -29,6 +29,7 @@ module.exports = function (grunt) {
       space: '\t',
       deps: [],
       wrap: false,
+      coffee: false,
       constants: {}
     });
     var template = grunt.file.read(TEMPLATE_PATH);
@@ -68,6 +69,12 @@ module.exports = function (grunt) {
         })
       });
 
+      // Javascript is built, convert to coffeescript if options.coffee
+      if(options.coffee || (module.options != null && module.options.coffee)) {
+        result = require('js2coffee').build(result);
+      }
+
+      // Write the module to disk
       grunt.file.write(module.dest, result);
       grunt.log.writeln('Module ' + module.name + ' created at ' + module.dest);
     });
