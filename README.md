@@ -265,9 +265,6 @@ grunt.initConfig({
 
 This will create two files with two different modules.
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
 #### CoffeeScript Module Option
 
 If you want to get coffee script output instead of javascript you can set the `coffee` option to `true`.
@@ -296,6 +293,9 @@ grunt.initConfig({
   }
 })
 ```
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 
