@@ -299,6 +299,7 @@ grunt.initConfig({
 
 ## Release History
 
+ * v0.4.5 - Closed #3, #11. The parameters `space`, `deps`, `wrap` and `coffee` are not available on per module base.
  * v0.4.4 - Closed #10
  * v0.4.3 - Single constant option added. ejs dependency removed.
  * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
