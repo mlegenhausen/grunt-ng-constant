@@ -108,11 +108,9 @@ module.exports = function(grunt) {
       },
       coffee_options: [
         {
-          options: {
-            coffee: true
-          },
           dest: 'tmp/coffee_options.coffee',
           name: 'module1',
+          coffee: true,
           constants: {
             'constant1': {
               key1: 'value1',

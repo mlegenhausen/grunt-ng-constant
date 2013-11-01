@@ -268,6 +268,35 @@ This will create two files with two different modules.
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
+#### CoffeeScript Module Option
+
+If you want to get coffee script output instead of javascript you can set the `coffee` option to `true`.
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      coffee: true // Globally active coffee script generation
+    },
+    coffee: {
+      dest: 'dist/module1.js',
+      name: 'constants1',
+      constants: {
+        ...
+      }
+    },
+    js: {
+      coffee: false, // Deactivate it on per module base
+      dest: 'dist/module1.js',
+      name: 'constants1',
+      constants: {
+        ...
+      }
+    }
+  }
+})
+```
+
 ## Release History
 
  * v0.4.4 - Closed #10

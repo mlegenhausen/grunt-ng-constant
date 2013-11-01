@@ -10,12 +10,13 @@
 
 var path = require('path');
 
+var _ = require('lodash');
+var js2coffee = require('js2coffee');
+
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 
 module.exports = function (grunt) {
-  var _ = require('lodash');
-
   function toArray(value) {
     return _.isArray(value) ? value : [value];
   }
@@ -32,6 +33,8 @@ module.exports = function (grunt) {
       coffee: false,
       constants: {}
     });
+    // Pick all option variables which are available per module
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee']);
     var template = grunt.file.read(TEMPLATE_PATH);
     var compiler = _.template(template);
     var rawOptions = grunt.config.getRaw(this.name);
@@ -44,17 +47,19 @@ module.exports = function (grunt) {
     }
 
     modules.forEach(function (module, index) {
+      _.defaults(module, defaultModuleOptions);
+
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
-          value: stringify(value, options.space)
+          value: stringify(value, module.space)
         };
       });
 
       // Create the module string
       var result = compiler({
         moduleName: module.name,
-        deps: module.deps || options.deps,
+        deps: module.deps,
         constants: constants
       });
 
@@ -69,15 +74,15 @@ module.exports = function (grunt) {
         })
       });
 
-      // Javascript is built, convert to coffeescript if options.coffee
-      if(options.coffee || (module.options != null && module.options.coffee)) {
-        result = require('js2coffee').build(result);
+      // Javascript is built, convert to coffeescript
+      if (module.coffee) {
+        result = js2coffee.build(result);
       }
 
       // Write the module to disk
+      grunt.log.write('Creating module ' + module.name + ' at ' + module.dest + '...');
       grunt.file.write(module.dest, result);
-      grunt.log.writeln('Module ' + module.name + ' created at ' + module.dest);
+      grunt.log.ok();
     });
-    grunt.log.ok();
   });
 };
