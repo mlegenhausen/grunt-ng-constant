@@ -303,3 +303,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * v0.4.4 - Closed #10
  * v0.4.3 - Single constant option added. ejs dependency removed.
  * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/b4bfcf00e0466f3f65e49548850d5d6e "githalytics.com")](http://githalytics.com/werk85/grunt-ng-constant)
