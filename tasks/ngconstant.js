@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 
     // Merge global configuration in first module
     if (modules.length) {
-      _.merge(modules[0].constants, options.constants);
+      modules[0].constants = _.merge(options.constants, modules[0].constants);
     }
 
     modules.forEach(function (module, index) {

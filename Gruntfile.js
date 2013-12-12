@@ -106,6 +106,15 @@ module.exports = function(grunt) {
           'constant2': undefined
         }
       },
+      global_constants_options: {
+        dest: 'tmp/global_constants_options.js',
+        name: 'module1',
+        constants: {
+          'constant1': {
+            global_key: 'overriden_global_value'
+          }
+        }
+      },
       coffee_options: [
         {
           dest: 'tmp/coffee_options.coffee',

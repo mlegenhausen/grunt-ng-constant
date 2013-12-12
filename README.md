@@ -252,7 +252,8 @@ grunt.initConfig({
   ngconstant: {
     options: {
       constants: {
-        title: 'grunt-ng-constant'
+        title: 'grunt-ng-constant',
+        debug: false
       }
     },
     dev: {
@@ -266,7 +267,7 @@ grunt.initConfig({
       name: 'config',
       dest: 'dist/config.js',
       constants: {
-        debug: false
+
       }
     }
   }
@@ -276,17 +277,23 @@ grunt.initConfig({
 Which results in the following constants objects.
 
 ```js
-// your dev target
-{
-  title: 'grunt-ng-constant',
-  debug: true
-}
+// For your dev target build/config.js
+angular.module('config', [])
 
-// your prod target
-{
-  title: 'grunt-ng-constant',
-  debug: false
-}
+.constant('title', 'grunt-ng-constant')
+
+.constant('debug', true)
+
+;
+
+// For your prod target dist/config.js
+angular.module('config', [])
+
+.constant('title', 'grunt-ng-constant')
+
+.constant('debug', false)
+
+;
 ```
 
 #### Multiple Module Option

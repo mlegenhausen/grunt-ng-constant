@@ -68,6 +68,15 @@ exports.ng_constant = {
 
     test.done();
   },
+  global_constants_options: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/global_constants_options.js');
+    var expected = grunt.file.read('test/expected/global_constants_options.js');
+    test.equal(actual, expected, 'should override global constants definition.');
+
+    test.done();
+  },
   coffee_options: function(test) {
     test.expect(1);
 
