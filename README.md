@@ -359,6 +359,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+ * v0.4.6 - Closed #16. Global constants module option added to README.
  * v0.4.5 - Closed #3, #11. The parameters `space`, `deps`, `wrap` and `coffee` are not available on per module base. Thanks to [jjt](https://github.com/jjt).
  * v0.4.4 - Closed #10
  * v0.4.3 - Single constant option added. ejs dependency removed.
