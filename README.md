@@ -58,6 +58,13 @@ Optional
 
 A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
+#### options.constants
+Type: `Object`
+Default: values: {}
+Optional
+
+An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option it gets merged in the first `constants` definition. This option should be used when you need a global `constants` definition for all your targets.
+
 #### options.coffee
 Type: `Boolean`
 Default value: `false`
@@ -234,6 +241,52 @@ define( ["angular", "ngResource", "ngCookies"], function() {
 ; 
 
 });
+```
+
+#### Global Constants option
+
+If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration with the global one.
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      constants: {
+        title: 'grunt-ng-constant'
+      }
+    },
+    dev: {
+      name: 'config',
+      dest: 'build/config.js',
+      constants: {
+        debug: true
+      }
+    },
+    prod: {
+      name: 'config',
+      dest: 'dist/config.js',
+      constants: {
+        debug: false
+      }
+    }
+  }
+});
+```
+
+Which results in the following constants objects.
+
+```js
+// your dev target
+{
+  title: 'grunt-ng-constant',
+  debug: true
+}
+
+// your prod target
+{
+  title: 'grunt-ng-constant',
+  debug: false
+}
 ```
 
 #### Multiple Module Option
