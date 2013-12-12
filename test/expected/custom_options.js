@@ -7,4 +7,4 @@ angular.module("module2", ["test"])
 	"foobar": false
 })
 
-;
+;;

@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     ngconstant: {
       options: {
         space: '\t',
+        wrap: '<%= __ngModule %>;',
         constants: {
           'constant1': {
             global_key: 'global_value'

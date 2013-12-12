@@ -4,4 +4,4 @@ angular.module("module1", [])
 	"global_key": "overriden_global_value"
 })
 
-;
+;;

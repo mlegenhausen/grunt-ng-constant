@@ -37,9 +37,12 @@ module.exports = function (grunt) {
     var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee']);
     var template = grunt.file.read(TEMPLATE_PATH);
     var compiler = _.template(template);
-    var rawOptions = grunt.config.getRaw(this.name);
-    var rawData = toArray(grunt.config.getRaw(this.name + '.' + this.target));
     var modules = toArray(this.data);
+
+    // Get raw configurations for manuell wrap option interpolation
+    var rawConfig = grunt.config.getRaw(this.name);
+    var rawOptions = rawConfig && rawConfig.options || {};
+    var rawData = toArray(rawConfig[this.target]);
 
     // Merge global configuration in first module
     if (modules.length) {

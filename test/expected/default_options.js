@@ -8,4 +8,4 @@ angular.module("module1", [])
 
 .constant("constant2", undefined)
 
-;
+;;
