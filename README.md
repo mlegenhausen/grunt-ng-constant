@@ -60,7 +60,7 @@ A boolean to active or deactive the automatic wrapping. A string who will wrap t
 
 #### options.constants
 Type: `Object`
-Default: values: {}
+Default value: `{}`
 Optional
 
 An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option it gets merged in the first `constants` definition. This option should be used when you need a global `constants` definition for all your targets.
