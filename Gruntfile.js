@@ -52,6 +52,20 @@ module.exports = function(grunt) {
           }
         }
       ],
+      singlequote_option: [
+        {
+          dest: 'tmp/singlequote_option.js',
+          name: 'module1',
+          singlequote: true,
+          constants: {
+            'constant1': {
+              key1: 'value1',
+              key2: 'value2'
+            },
+            'constant2': 'value3'
+          }
+        }
+      ],
       custom_options: [
         {
           dest: 'tmp/custom_options.js',
