@@ -31,11 +31,12 @@ module.exports = function (grunt) {
       deps: [],
       wrap: false,
       coffee: false,
-      constants: {}
+      constants: {},
+      templatePath:TEMPLATE_PATH
     });
     // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee']);
-    var template = grunt.file.read(TEMPLATE_PATH);
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath']);
+    var template = grunt.file.read(defaultModuleOptions.templatePath);
     var compiler = _.template(template);
     var modules = toArray(this.data);
 

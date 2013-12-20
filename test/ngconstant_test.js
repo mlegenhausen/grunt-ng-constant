@@ -86,6 +86,13 @@ exports.ng_constant = {
     test.equal(actual, expected, 'should output module in coffeescript');
 
     test.done();
+  },
+  template_options: function(test){
+      test.expect(1);
+      var actual = grunt.file.read('tmp/template_options.js');
+      var expected = grunt.file.read('test/expected/template_options.js');
+      test.equal(actual, expected, 'should output module with custom template');
+      test.done();
   }
     
 
