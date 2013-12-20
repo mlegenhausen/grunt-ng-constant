@@ -1,0 +1,10 @@
+/*jshint -W109*/
+define(function (require) {
+    'use strict';
+
+    var angular = require('angular');
+
+    angular.module("<%- moduleName %>"<% if (deps) { %>, <%= JSON.stringify(deps) %><% } %>)
+    <% constants.forEach(function(constant) { %>.constant("<%- constant.name %>", <%= constant.value %>)<% }) %>;
+
+})
