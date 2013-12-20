@@ -21,20 +21,25 @@ module.exports = function (grunt) {
     return _.isArray(value) ? value : [value];
   }
 
-  function stringify(value, space) {
-    return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
+  function stringify(value, space, singlequote) {
+    var str = _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
+    if (singlequote) {
+      str = str.replace(/"/g, '\'');
+    }
+    return str;
   }
 
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
     var options = this.options({
       space: '\t',
       deps: [],
+      singlequote: false,
       wrap: false,
       coffee: false,
       constants: {}
     });
     // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee']);
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'singlequote', 'wrap', 'coffee']);
     var template = grunt.file.read(TEMPLATE_PATH);
     var compiler = _.template(template);
     var modules = toArray(this.data);
@@ -55,7 +60,7 @@ module.exports = function (grunt) {
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
-          value: stringify(value, module.space)
+          value: stringify(value, module.space, module.singlequote)
         };
       });
 
@@ -63,6 +68,7 @@ module.exports = function (grunt) {
       var result = compiler({
         moduleName: module.name,
         deps: module.deps,
+        singlequote: module.singlequote,
         constants: constants
       });
 
