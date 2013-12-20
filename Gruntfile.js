@@ -129,7 +129,17 @@ module.exports = function(grunt) {
             'constant2': undefined
           }
         }
-      ]
+      ],
+      template_options:{
+          dest:'tmp/template_options.js',
+          name:'templateOptionsModule',
+          options:{
+              templatePath:'test/custom.tpl.ejs'
+          },
+          constants: {
+              'constant1': 'value1'
+          }
+      }
     },
 
     // Unit tests.

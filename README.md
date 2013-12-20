@@ -72,6 +72,13 @@ Optional
 
 A boolean to toggle coffeescript output instead of javascript, using [`js2coffee`](https://github.com/rstacruz/js2coffee). Can also be assigned on a per-target basis.
 
+#### options.templatePath
+Type: `String`
+Default value: `constant.tpl.ejs`
+Optional
+
+Location of a custom template file for creating the output configuration file. Defaults to the provided constants template file if none provided.
+
 ### Usage Examples
 
 #### Default Options
