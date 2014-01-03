@@ -72,9 +72,9 @@ module.exports = function (grunt) {
         wrap = DEFAULT_WRAP;
       }
       result = grunt.template.process(wrap, {
-        data: _.extend(grunt.config(), {
+        data: {
           '__ngModule': result
-        })
+        }
       });
 
       // Javascript is built, convert to coffeescript
