@@ -39,69 +39,61 @@ module.exports = function(grunt) {
           }
         }
       },
-      default_options: [
-        {
-          dest: 'tmp/default_options.js',
-          name: 'module1',
-          constants: {
-            'constant1': {
-              key1: 'value1',
-              key2: 'value2'
-            },
-            'constant2': undefined
-          }
-        }
-      ],
-      custom_options: [
-        {
-          options: {
-            deps: ['test']
+      default_options: {
+        dest: 'tmp/default_options.js',
+        name: 'module1',
+        constants: {
+          'constant1': {
+            key1: 'value1',
+            key2: 'value2'
           },
-          dest: 'tmp/custom_options.js',
-          name: 'module2',
-          constants: {
-            'constant1': {
-              key1: 123,
-              key2: 'value2',
-              foobar: false
-            }
+          'constant2': undefined
+        }
+      },
+      custom_options: {
+        options: {
+          deps: ['test']
+        },
+        dest: 'tmp/custom_options.js',
+        name: 'module2',
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
           }
         }
-      ],
-      wrap_options: [
-        {
-          options: {
-            deps: ['test'],
-            wrap: true
-          },
-          dest: 'tmp/wrap_options.js',
-          name: 'module2',
-          constants: {
-            'constant1': {
-              key1: 123,
-              key2: 'value2',
-              foobar: false
-            }
+      },
+      wrap_options: {
+        options: {
+          deps: ['test'],
+          wrap: true
+        },
+        dest: 'tmp/wrap_options.js',
+        name: 'module2',
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
           }
         }
-      ],
-      custom_wrap_options: [
-        {
-          options: {
-            deps: ['test'],
-            wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
-          },
-          dest: 'tmp/custom_wrap_options.js',
-          name: 'module2',
-          constants: {
-            'constant1': {
-              key1: 123,
-              key2: 'value2',
-              foobar: false
-            }
+      },
+      custom_wrap_options: {
+        options: {
+          deps: ['test'],
+          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
+        },
+        dest: 'tmp/custom_wrap_options.js',
+        name: 'module2',
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
           }
         }
-      ],
+      },
       simple_default_options: {
         dest: 'tmp/simple_default_options.js',
         name: 'module1',
@@ -122,22 +114,20 @@ module.exports = function(grunt) {
           }
         }
       },
-      coffee_options: [
-        {
-          options: {
-            coffee: true,
+      coffee_options: {
+        options: {
+          coffee: true,
+        },
+        dest: 'tmp/coffee_options.coffee',
+        name: 'module1',
+        constants: {
+          'constant1': {
+            key1: 'value1',
+            key2: 'value2'
           },
-          dest: 'tmp/coffee_options.coffee',
-          name: 'module1',
-          constants: {
-            'constant1': {
-              key1: 'value1',
-              key2: 'value2'
-            },
-            'constant2': undefined
-          }
+          'constant2': undefined
         }
-      ],
+      },
       template_options: {
         options: {
           template: grunt.file.read('test/custom.tpl.ejs'),
