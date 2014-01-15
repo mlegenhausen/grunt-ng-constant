@@ -54,9 +54,11 @@ module.exports = function(grunt) {
       ],
       custom_options: [
         {
+          options: {
+            deps: ['test']
+          },
           dest: 'tmp/custom_options.js',
           name: 'module2',
-          deps: ['test'],
           constants: {
             'constant1': {
               key1: 123,
@@ -68,10 +70,12 @@ module.exports = function(grunt) {
       ],
       wrap_options: [
         {
+          options: {
+            deps: ['test'],
+            wrap: true
+          },
           dest: 'tmp/wrap_options.js',
           name: 'module2',
-          deps: ['test'],
-          wrap: true,
           constants: {
             'constant1': {
               key1: 123,
@@ -83,10 +87,12 @@ module.exports = function(grunt) {
       ],
       custom_wrap_options: [
         {
+          options: {
+            deps: ['test'],
+            wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
+          },
           dest: 'tmp/custom_wrap_options.js',
           name: 'module2',
-          deps: ['test'],
-          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
           constants: {
             'constant1': {
               key1: 123,
@@ -118,9 +124,11 @@ module.exports = function(grunt) {
       },
       coffee_options: [
         {
+          options: {
+            coffee: true,
+          },
           dest: 'tmp/coffee_options.coffee',
           name: 'module1',
-          coffee: true,
           constants: {
             'constant1': {
               key1: 'value1',
@@ -130,10 +138,12 @@ module.exports = function(grunt) {
           }
         }
       ],
-      template_options:{
+      template_options: {
+        options: {
+          template: grunt.file.read('test/custom.tpl.ejs'),
+        },
         dest: 'tmp/template_options.js',
         name: 'templateOptionsModule',
-        template: grunt.file.read('test/custom.tpl.ejs'),
         constants: {
           'constant1': 'value1'
         }

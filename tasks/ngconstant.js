@@ -38,50 +38,51 @@ module.exports = function (grunt) {
       delimiters: 'ngconstant'
     });
 
-    // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'delimiters', 'template']);
-
     // Merge global configuration in first module
     var modules = toArray(this.data);
     if (modules.length) {
       modules[0].constants = _.merge(options.constants, modules[0].constants);
     }
 
-    modules.forEach(function (module, index) {
-      // Merge per module options with default options
-      _.defaults(module, defaultModuleOptions);
+    modules.forEach(function (module) {
+      // Inherit options from global option definition
+      module.options = module.options || {};
+      _.defaults(module.options, options);
 
       // Create compiler data
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
-          value: stringify(value, module.space)
+          value: stringify(value, module.options.space)
         };
       });
 
       // Create the module string
-      var result = grunt.template.process(module.template, {
+      var result = grunt.template.process(module.options.template, {
         data: _.extend(grunt.config.getRaw(), {
           moduleName: module.name,
-          deps: module.deps,
+          deps: module.options.deps,
           constants: constants
         }),
-        delimiters: module.delimiters
+        delimiters: module.options.delimiters
       });
 
       // Handle wrapping
-      if (module.wrap === true) {
-        module.wrap = DEFAULT_WRAP;
+      var wrap = module.options.wrap;
+      if (wrap === true) {
+        wrap = DEFAULT_WRAP;
       }
-      result = grunt.template.process(module.wrap, {
-        data: _.extend(grunt.config.getRaw(), {
-          '__ngModule': result
-        }),
-        delimiters: module.delimiters
-      });
+      if (wrap) {
+        result = grunt.template.process(wrap, {
+          data: _.extend(grunt.config.getRaw(), {
+            '__ngModule': result
+          }),
+          delimiters: module.options.delimiters
+        });
+      }
 
       // Javascript is built, convert to coffeescript
-      if (module.coffee) {
+      if (module.options.coffee) {
         result = js2coffee.build(result);
       }
 
