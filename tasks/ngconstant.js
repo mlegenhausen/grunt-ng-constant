@@ -13,7 +13,7 @@ var path = require('path');
 var _ = require('lodash');
 var js2coffee = require('js2coffee');
 
-var DEFAULT_WRAP = '(function(angular, undefined) {\n\t <%= __ngModule %> \n})(angular);';
+var DEFAULT_WRAP = '(function(angular, undefined) {\n\t {%= __ngModule %} \n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 
 module.exports = function (grunt) {
@@ -25,23 +25,21 @@ module.exports = function (grunt) {
     return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
   }
 
+  grunt.template.addDelimiters('ngconstant', '{%', '%}');
+
   grunt.registerMultiTask('ngconstant', 'Dynamic angular constant generator task.', function () {
     var options = this.options({
       space: '\t',
       deps: [],
-      wrap: false,
+      wrap: '{%= __ngModule %}',
       coffee: false,
       constants: {},
-      templatePath: TEMPLATE_PATH
+      template: grunt.file.read(TEMPLATE_PATH),
+      delimiters: 'ngconstant'
     });
 
     // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath']);
-
-    // Get raw configurations for manuell wrap option interpolation
-    var rawConfig = grunt.config.getRaw(this.name);
-    var rawOptions = rawConfig && rawConfig.options || {};
-    var rawData = toArray(rawConfig[this.target]);
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'delimiters', 'template']);
 
     // Merge global configuration in first module
     var modules = toArray(this.data);
@@ -62,22 +60,24 @@ module.exports = function (grunt) {
       });
 
       // Create the module string
-      var template = grunt.file.read(module.templatePath);
-      var result = _.template(template, {
-        moduleName: module.name,
-        deps: module.deps,
-        constants: constants
+      var result = grunt.template.process(module.template, {
+        data: _.extend(grunt.config.getRaw(), {
+          moduleName: module.name,
+          deps: module.deps,
+          constants: constants
+        }),
+        delimiters: module.delimiters
       });
 
       // Handle wrapping
-      var wrap = rawData[index].wrap || rawOptions.wrap || '<%= __ngModule %>';
-      if (wrap === true) {
-        wrap = DEFAULT_WRAP;
+      if (module.wrap === true) {
+        module.wrap = DEFAULT_WRAP;
       }
-      result = grunt.template.process(wrap, {
+      result = grunt.template.process(module.wrap, {
         data: _.extend(grunt.config.getRaw(), {
           '__ngModule': result
-        })
+        }),
+        delimiters: module.delimiters
       });
 
       // Javascript is built, convert to coffeescript
