@@ -131,14 +131,12 @@ module.exports = function(grunt) {
         }
       ],
       template_options:{
-          dest:'tmp/template_options.js',
-          name:'templateOptionsModule',
-          options:{
-              templatePath:'test/custom.tpl.ejs'
-          },
-          constants: {
-              'constant1': 'value1'
-          }
+        dest: 'tmp/template_options.js',
+        name: 'templateOptionsModule',
+        templatePath: 'test/custom.tpl.ejs',
+        constants: {
+          'constant1': 'value1'
+        }
       }
     },
 

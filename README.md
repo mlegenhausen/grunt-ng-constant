@@ -250,6 +250,8 @@ define( ["angular", "ngResource", "ngCookies"], function() {
 });
 ```
 
+__Note__: For longer wrapping templates it is recommended to use `grunt.file.read('customer-wrap.tpl.ejs')`.
+
 #### Global Constants option
 
 If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration with the global one.

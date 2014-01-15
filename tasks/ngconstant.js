@@ -32,13 +32,11 @@ module.exports = function (grunt) {
       wrap: false,
       coffee: false,
       constants: {},
-      templatePath:TEMPLATE_PATH
+      templatePath: TEMPLATE_PATH
     });
+
     // Pick all option variables which are available per module
     var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath']);
-    var template = grunt.file.read(defaultModuleOptions.templatePath);
-    var compiler = _.template(template);
-    var modules = toArray(this.data);
 
     // Get raw configurations for manuell wrap option interpolation
     var rawConfig = grunt.config.getRaw(this.name);
@@ -46,13 +44,16 @@ module.exports = function (grunt) {
     var rawData = toArray(rawConfig[this.target]);
 
     // Merge global configuration in first module
+    var modules = toArray(this.data);
     if (modules.length) {
       modules[0].constants = _.merge(options.constants, modules[0].constants);
     }
 
     modules.forEach(function (module, index) {
+      // Merge per module options with default options
       _.defaults(module, defaultModuleOptions);
 
+      // Create compiler data
       var constants = _.map(module.constants, function (value, name) {
         return {
           name: name,
@@ -61,7 +62,8 @@ module.exports = function (grunt) {
       });
 
       // Create the module string
-      var result = compiler({
+      var template = grunt.file.read(module.templatePath);
+      var result = _.template(template, {
         moduleName: module.name,
         deps: module.deps,
         constants: constants
