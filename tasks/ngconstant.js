@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         wrap = DEFAULT_WRAP;
       }
       result = grunt.template.process(wrap, {
-        data: _.extend(grunt.config(), {
+        data: _.extend(grunt.config.getRaw(), {
           '__ngModule': result
         })
       });
