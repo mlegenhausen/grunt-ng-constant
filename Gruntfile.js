@@ -116,6 +116,28 @@ module.exports = function(grunt) {
           }
         }
       },
+	  global_constants_multiple_modules_options: [
+        {
+          dest: 'tmp/global_constants_multiple_modules_options_1.js',
+          name: 'module1',
+          constants: {
+            'constant2': {
+              global_key: 'value2'
+            }
+          },
+		  includeGlobalConstants: false
+        },
+        {
+          dest: 'tmp/global_constants_multiple_modules_options_2.js',
+          name: 'module2',
+          constants: {
+            'constant2': {
+              global_key: 'value2'
+            }
+          },
+		  includeGlobalConstants: true
+        }
+      ],
       coffee_options: [
         {
           dest: 'tmp/coffee_options.coffee',
