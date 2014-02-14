@@ -63,7 +63,14 @@ Type: `Object`
 Default value: `{}`
 Optional
 
-An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option it gets merged in the first `constants` definition. This option should be used when you need a global `constants` definition for all your targets.
+An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option, it gets merged into _only_ the first `constants` definition by default. This option should be used when you need a global `constants` definition for all your targets.
+
+#### options.includeGlobalConstants
+Type: `Boolean`
+Default value: `false`
+Optional
+
+A boolean that can be set on a specific module to indicate that global constants should be included in the module. Must be assigned on a per-module basis. 
 
 #### options.coffee
 Type: `Boolean`

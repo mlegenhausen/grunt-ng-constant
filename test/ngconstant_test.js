@@ -77,6 +77,24 @@ exports.ng_constant = {
 
     test.done();
   },
+  global_constants_multiple_modules_options_1: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/global_constants_multiple_modules_options_1.js');
+    var expected = grunt.file.read('test/expected/global_constants_multiple_modules_options_1.js');
+    test.equal(actual, expected, 'should not merge global constants when option is false.');
+
+    test.done();
+  },
+  global_constants_multiple_modules_options_2: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/global_constants_multiple_modules_options_2.js');
+    var expected = grunt.file.read('test/expected/global_constants_multiple_modules_options_2.js');
+    test.equal(actual, expected, 'should merge global constants when option is true.');
+
+    test.done();
+  },
   coffee_options: function(test) {
     test.expect(1);
 
