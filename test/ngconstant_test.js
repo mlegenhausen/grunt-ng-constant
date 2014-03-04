@@ -93,6 +93,14 @@ exports.ng_constant = {
       var expected = grunt.file.read('test/expected/template_options.js');
       test.equal(actual, expected, 'should output module with custom template');
       test.done();
+  },
+
+  source_options: function(test){
+    test.expect(1);
+    var actual = grunt.file.read('tmp/source_options.js');
+    var expected = grunt.file.read('test/expected/source_options.js');
+    test.equal(actual, expected, 'should read constants from file');
+    test.done();
   }
     
 

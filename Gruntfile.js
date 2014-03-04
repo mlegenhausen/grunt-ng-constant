@@ -137,12 +137,17 @@ module.exports = function(grunt) {
         constants: {
           'constant1': 'value1'
         }
+      },
+      source_options: {
+        dest: 'tmp/source_options.js',
+        name: 'sourceOptionsModule',
+        constants_file: 'test/fixtures/constants.file.json'
       }
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
+      tests: ['test/*_test.js']
     },
 
     bump: {
