@@ -32,11 +32,12 @@ module.exports = function (grunt) {
       wrap: false,
       coffee: false,
       constants: {},
+      constants_file: null,
       templatePath: TEMPLATE_PATH
     });
 
     // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath']);
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath', 'source']);
 
     // Get raw configurations for manuell wrap option interpolation
     var rawConfig = grunt.config.getRaw(this.name);
@@ -52,6 +53,23 @@ module.exports = function (grunt) {
     modules.forEach(function (module, index) {
       // Merge per module options with default options
       _.defaults(module, defaultModuleOptions);
+
+      // Read compiler data from file if source was set to 'file'
+      var fileConstants = null;
+      if (module.constants_file) {
+        var sourceFile = module.constants_file;
+        if (grunt.file.exists(sourceFile)) {
+          fileConstants = grunt.file.readJSON(sourceFile)
+        } else {
+          grunt.fail.fatal('source file does not exist in path [' + sourceFile + ']')
+        }
+      }
+
+
+      // Merge file constants with standard JSON constants
+      if (fileConstants) {
+        module.constants = _.merge(fileConstants, module.constants);
+      }
 
       // Create compiler data
       var constants = _.map(module.constants, function (value, name) {

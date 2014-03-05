@@ -65,6 +65,13 @@ Optional
 
 An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option it gets merged in the first `constants` definition. This option should be used when you need a global `constants` definition for all your targets.
 
+#### options.constants_file
+Type: `String`
+Default value: `null`
+Optional
+
+Relative path to JSON file containing constants. The contents of the specified file will be merged with any constants defined in options.constants
+
 #### options.coffee
 Type: `Boolean`
 Default value: `false`
