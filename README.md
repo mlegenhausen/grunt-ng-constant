@@ -79,6 +79,24 @@ Optional
 
 Location of a custom template file for creating the output configuration file. Defaults to the provided constants template file if none provided.
 
+#### options.dest
+Type: `String`
+Default value: `""`
+Optional
+
+Module destination. Useful if module is created in same destination for all environments.
+
+#### options.name
+Type: `String`
+Default value: `""`
+Optional
+
+Module name. For example, if name is 'moduleName':
+
+```js
+angular.module("moduleName", [])
+```
+
 ### Usage Examples
 
 #### Default Options
@@ -199,7 +217,7 @@ The resulting module looks like:
   "foobar": false
 })
 
-; 
+;
 })(angular);
 ```
 
@@ -236,7 +254,7 @@ grunt.initConfig({
 The resulting module looks like the following:
 
 ```
-define( ["angular", "ngResource", "ngCookies"], function() { 
+define( ["angular", "ngResource", "ngCookies"], function() {
  return angular.module("module2", ["test"])
 
 .constant("constant1", {
@@ -245,7 +263,7 @@ define( ["angular", "ngResource", "ngCookies"], function() {
   "foobar": false
 })
 
-; 
+;
 
 });
 ```
