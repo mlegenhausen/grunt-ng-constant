@@ -23,6 +23,15 @@ var grunt = require('grunt');
 */
 
 exports.ng_constant = {
+  base_options: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/base_options.js');
+    var expected = grunt.file.read('test/expected/base_options.js');
+    test.equal(actual,expected,'should create a constants module with base settings');
+
+    test.done();
+  },
   default_options: function(test) {
     test.expect(1);
 
@@ -94,6 +103,6 @@ exports.ng_constant = {
       test.equal(actual, expected, 'should output module with custom template');
       test.done();
   }
-    
+
 
 };

@@ -32,11 +32,13 @@ module.exports = function (grunt) {
       wrap: false,
       coffee: false,
       constants: {},
-      templatePath: TEMPLATE_PATH
+      templatePath: TEMPLATE_PATH,
+      dest: '',
+      name: ''
     });
 
     // Pick all option variables which are available per module
-    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath']);
+    var defaultModuleOptions = _.pick(options, ['space', 'deps', 'wrap', 'coffee', 'templatePath', 'dest', 'name']);
 
     // Get raw configurations for manuell wrap option interpolation
     var rawConfig = grunt.config.getRaw(this.name);

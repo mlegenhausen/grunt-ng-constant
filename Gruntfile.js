@@ -31,6 +31,8 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     ngconstant: {
       options: {
+        dest: 'tmp/base_options.js',
+        name: 'module0',
         space: '\t',
         wrap: '<%= __ngModule %>;',
         constants: {
@@ -38,6 +40,9 @@ module.exports = function(grunt) {
             global_key: 'global_value'
           }
         }
+      },
+      base_settings: {
+        // intentionally blank to test that "dest" and "name" are inherited from options
       },
       default_options: [
         {
