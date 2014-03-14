@@ -31,6 +31,7 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     ngconstant: {
       options: {
+        dest: 'tmp/empty_options.js',
         space: '\t',
         wrap: '{%= __ngModule %};',
         constants: {
@@ -39,16 +40,21 @@ module.exports = function(grunt) {
           }
         }
       },
+      empty_options: {
+
+      },
       default_options: {
         options: {
           dest: 'tmp/default_options.js',
           name: 'module1',
         },
-        'constant1': {
-          key1: 'value1',
-          key2: 'value2'
-        },
-        'constant2': undefined
+        constants: {
+          'constant1': {
+            key1: 'value1',
+            key2: 'value2'
+          },
+          'constant2': undefined
+        }
       },
       custom_options: {
         options: {
@@ -56,10 +62,12 @@ module.exports = function(grunt) {
           dest: 'tmp/custom_options.js',
           name: 'module2'
         },
-        'constant1': {
-          key1: 123,
-          key2: 'value2',
-          foobar: false
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
+          }
         }
       },
       wrap_options: {
@@ -69,10 +77,12 @@ module.exports = function(grunt) {
           dest: 'tmp/wrap_options.js',
           name: 'module2'
         },
-        'constant1': {
-          key1: 123,
-          key2: 'value2',
-          foobar: false
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
+          }
         }
       },
       custom_wrap_options: {
@@ -82,10 +92,12 @@ module.exports = function(grunt) {
           dest: 'tmp/custom_wrap_options.js',
           name: 'module2'
         },
-        'constant1': {
-          key1: 123,
-          key2: 'value2',
-          foobar: false
+        constants: {
+          'constant1': {
+            key1: 123,
+            key2: 'value2',
+            foobar: false
+          }
         }
       },
       simple_default_options: {
@@ -93,19 +105,23 @@ module.exports = function(grunt) {
           dest: 'tmp/simple_default_options.js',
           name: 'module1'
         },
-        'constant1': {
-          key1: 'value1',
-          key2: 'value2'
-        },
-        'constant2': undefined
+        constants: {
+          'constant1': {
+            key1: 'value1',
+            key2: 'value2'
+          },
+          'constant2': undefined
+        }
       },
       global_constants_options: {
         options: {
           dest: 'tmp/global_constants_options.js',
           name: 'module1'
         },
-        'constant1': {
-          global_key: 'overriden_global_value'
+        constants: {
+          'constant1': {
+            global_key: 'overriden_global_value'
+          }
         }
       },
       template_options: {
@@ -114,7 +130,9 @@ module.exports = function(grunt) {
           dest: 'tmp/template_options.js',
           name: 'templateOptionsModule',
         },
-        'constant1': 'value1'
+        constants: {
+          'constant1': 'value1'
+        }
       }
     },
 
