@@ -27,7 +27,7 @@ grunt.initConfig({
   ngconstant: {
     options: {
       name: 'config',
-      dest: 'config.js',
+      dest: 'config_debug.js',
       constants: {
         debug: true,
         package: grunt.file.read('package.json')
@@ -37,7 +37,12 @@ grunt.initConfig({
 
     },
     production: {
-      debug: false
+      options: {
+        dest: 'config_prod.js'
+      },
+      constants: {
+        debug: false
+      }
     }
   },
 })
@@ -79,18 +84,11 @@ Optional
 A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 #### options.constants
-Type: `Object`
+Type: `Object`, `String`, `Function`
 Default value: `{}`
 Optional
 
-An object that gets automatically merged in all target `constants` definitions. When you use the multiple module option it gets merged in the first `constants` definition. This option should be used when you need a global `constants` definition for all your targets.
-
-#### options.coffee
-Type: `Boolean`
-Default value: `false`
-Optional
-
-A boolean to toggle coffeescript output instead of javascript, using [`js2coffee`](https://github.com/rstacruz/js2coffee). Can also be assigned on a per-target basis.
+If it is an object it gets automatically merged in all target `constants` definitions. This option should be used when you need a global `constants` definition for all your targets.
 
 #### options.template
 Type: `String`
@@ -127,26 +125,6 @@ grunt.initConfig({
 })
 ```
 
-#### Default Options, Coffeescript
-Same as above example, but outputs coffeescript instead
-
-```js
-grunt.initConfig({
-  ngconstant: {
-    options: {
-      coffee: true
-    },
-    dist: {
-      options: {
-        dest: 'dist/constants.coffee',
-        name: 'constants'
-      },
-      package: grunt.file.readJSON('package.json')
-    }
-  },
-})
-```
-
 #### Custom Options
 In this example we set custom configurations for the `space` and `deps` parameter. So we create a module that has `dep1` and `dep2` as dependency and defines two different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
 
@@ -160,10 +138,15 @@ grunt.initConfig({
       name: 'someModule'
     },
     dist: {
-      'constant1': 'some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify',
-      'constant2': {
-        'key1': 'value1',
-        'key2': 42
+      constants: {
+        'constant1': 'constant1.json', // Load json from path
+        'constant2': {
+          'key1': 'value1',
+          'key2': 42
+        },
+        'constant3': function () { // Exec function first on task run
+          return 'some lazy return value'
+        }
       }
     }
   },
@@ -199,17 +182,22 @@ grunt.initConfig({
       wrap: true
     },
     dist: {
-      'constant1': {
-        key1: 123,
-        key2: 'value2',
-        foobar: false
+      constants: {
+        'constant1': {
+          key1: 123,
+          key2: 'value2',
+          foobar: false
+        }
       }
+      
     },
     nowrap: { 
       options: {
         wrap: false // Disable wrapping for the 'nowrap' target
       },
-      ...
+      constants: {
+        ...
+      }
     }
   },
 })
@@ -246,10 +234,12 @@ grunt.initConfig({
       wrap: 'define(["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
     },
     dist: {
-      'constant1': {
-        key1: 123,
-        key2: 'value2',
-        foobar: false
+      constants: {
+        'constant1': {
+          key1: 123,
+          key2: 'value2',
+          foobar: false
+        }
       }
     }
   },
@@ -277,7 +267,7 @@ __Note__: For longer wrapping templates it is recommended to use `grunt.file.rea
 
 #### Global Constants option
 
-If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration with the global one.
+If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration with the global one. If you want don't want to merge, you can use the per target `constants` option to override everything.
 
 ```js
 grunt.initConfig({
@@ -291,10 +281,21 @@ grunt.initConfig({
       }
     },
     dev: {
-      title: 'grunt-ng-constant-beta'
+      constants: {
+        title: 'grunt-ng-constant-beta'
+      }
     },
     prod: {
-      debug: false
+      constants: {
+        debug: false
+      }
+    },
+    override_global: {
+      options: {
+        constants: { // This does not merge it overrides
+          ...
+        }
+      }
     }
   }
 });
@@ -324,35 +325,6 @@ angular.module('config', [])
 .constant('debug', false)
 
 ;
-```
-
-#### CoffeeScript Module Option
-
-If you want to get coffee script output instead of javascript you can set the `coffee` option to `true`.
-
-```js
-grunt.initConfig({
-  ngconstant: {
-    options: {
-      coffee: true // Globally active coffee script generation
-    },
-    coffee: {
-      dest: 'dist/module1.js',
-      name: 'constants1',
-      constants: {
-        ...
-      }
-    },
-    js: {
-      coffee: false, // Deactivate it on per module base
-      dest: 'dist/module1.js',
-      name: 'constants1',
-      constants: {
-        ...
-      }
-    }
-  }
-})
 ```
 
 ## Contributing
