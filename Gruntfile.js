@@ -56,6 +56,11 @@ module.exports = function(grunt) {
             key2: 'value2'
           },
           'constant2': undefined
+        },
+        values: {
+          'value1': {
+            key1: 'value1'
+          }
         }
       },
       custom_options: {
@@ -113,6 +118,11 @@ module.exports = function(grunt) {
             key2: 'value2'
           },
           'constant2': undefined
+        },
+        values: {
+          'value1': {
+            key1: 'value1'
+          }
         }
       },
       global_constants_options: {

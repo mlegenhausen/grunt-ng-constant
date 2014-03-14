@@ -27,9 +27,18 @@ module.exports = function (grunt) {
       obj[key] = grunt.file.readJSON(obj[key]);
     }
     if (!_.isObject(obj[key])) {
-      grunt.fail.warn('Parameter constants needs to be of type object');
+      grunt.fail.warn('Parameter ' + key + ' needs to be of type object');
     }
     return obj[key];
+  }
+
+  function transformData(data, space) {
+    return _.map(data, function (value, name) {
+      return {
+        name: name,
+        value: stringify(value, space)
+      };
+    });
   }
 
   var defaultTemplate = grunt.file.read(TEMPLATE_PATH);
@@ -43,27 +52,23 @@ module.exports = function (grunt) {
       wrap: '{%= __ngModule %}',
       template: defaultTemplate,
       delimiters: MODULE_NAME,
-      constants: {}
+      constants: {},
+      values: {}
     });
 
     // Merge target configuration in global definition
-    var resolveConstants = _.bind(resolveKey, this, 'constants');
-    _.merge(resolveConstants(options), resolveConstants(this.data));
+    _.forEach(['constants', 'values'], function (key) {
+      var resolve = _.bind(resolveKey, this, key);
+      _.merge(resolve(options), resolve(this.data));
+    }, this);
 
-    // Create compiler data
-    var constants = _.map(options.constants, function (value, name) {
-      return {
-        name: name,
-        value: stringify(value, options.space)
-      };
-    });
-
-    // Create the module string
+    // Transform the data and create the module string
     var result = grunt.template.process(options.template, {
       data: _.extend({}, grunt.config.data, {
         moduleName: options.name,
         deps: options.deps,
-        constants: constants
+        constants: transformData(options.constants, options.space),
+        values: transformData(options.values, options.space)
       }),
       delimiters: options.delimiters
     });

@@ -1,6 +1,6 @@
 # grunt-ng-constant
 
-> Plugin for dynamic generation of angular constant modules.
+> Plugin for dynamic generation of angular constant and value modules.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -11,7 +11,7 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install grunt-ng-constant --save-dev
 ```
 
-One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+When the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
 grunt.loadNpmTasks('grunt-ng-constant');
@@ -20,7 +20,7 @@ grunt.loadNpmTasks('grunt-ng-constant');
 ## The "ngconstant" task
 
 ### Overview
-The following shows a minimum configuration for generating a config module with one constants that contain your package information.
+The following shows a minimum configuration for generating a config module with one constant and one value that contain your package information and debug config.
 
 ```js
 grunt.initConfig({
@@ -30,6 +30,9 @@ grunt.initConfig({
       dest: 'config.js',
       constants: {
         package: grunt.file.readJSON('package.json')
+      },
+      values: {
+        debug: true
       }
     },
     build: {
@@ -47,6 +50,8 @@ angular.module('config', [])
   "version": "0.0.1",
   ...
 })
+
+.value("debug", true)
 
 ;
 ```
@@ -93,6 +98,13 @@ Optional
 
 If it is an object it gets automatically merged in all target `constants` definitions. This option should be used when you need a global `constants` definition for all your targets.
 
+#### options.values
+Type: `Object`, `String`, `Function`
+Default value: `{}`
+Optional
+
+If it is an object it gets automatically merged in all target `values` definitions. This option should be used when you need a global `values` definition for all your targets.
+
 #### options.template
 Type: `String`
 Default value: `grunt.file.read('constant.tpl.ejs')`
@@ -122,11 +134,16 @@ grunt.initConfig({
       },
       constants: {
         package: grunt.file.readJSON('package.json')
+      },
+      values: {
+        debug: true
       }
     }
   },
 })
 ```
+
+__Note__: In generell for all following examples the applied functionality on `constants` can also be used in for the `values` parameter.
 
 #### Custom Options
 In this example we set custom configurations for the `space` and `deps` parameter. So we create a module that has `dep1` and `dep2` as dependency and defines two different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
