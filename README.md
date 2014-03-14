@@ -361,8 +361,10 @@ Till v0.5.0 this was supported natively by the plugin. Now you have to use the [
 #### Hey I like this project how can I help?
 Report bugs, propose new features or simply star the project that shows me that are people are interessted in this project.
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+## Upgrade from v0.4.x to v0.5.x
+
+ * `dest` and `name` need to be placed under the `options` parameter.
+ * Multimodule configuration has been removed to make the configuration more simple. If you need this in your project split your module array in multiple targets and define for each target the `dest` and `name` option.
 
 ## Release History
  * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed [#12](https://github.com/werk85/grunt-ng-constant/issues/12).
@@ -373,5 +375,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * v0.4.4 - Closed [#10](https://github.com/werk85/grunt-ng-constant/issues/10)
  * v0.4.3 - Single constant option added. ejs dependency removed.
  * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/b4bfcf00e0466f3f65e49548850d5d6e "githalytics.com")](http://githalytics.com/werk85/grunt-ng-constant)
