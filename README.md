@@ -175,7 +175,7 @@ grunt.initConfig({
 
 The resulting module looks like the following:
 
-```
+```js
 angular.module("someModule", ["dep1", "dep2"])
 
 .constant("constant1", "some value you want to set as constant value.
@@ -351,7 +351,7 @@ angular.module('config', [])
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-
+ * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed #12.
  * v0.4.8 - Closed #19, #23. Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://github.com/ggalmazor).
  * v0.4.7 - Closed #17.
  * v0.4.6 - Closed #16. Global constants module option added to README.
