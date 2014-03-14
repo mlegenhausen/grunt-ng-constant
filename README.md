@@ -20,7 +20,7 @@ grunt.loadNpmTasks('grunt-ng-constant');
 ## The "ngconstant" task
 
 ### Overview
-The following shows a minimum configuration for generating a config module with one constant and one value that contain your package information and debug config.
+The following shows a simple configuration for generating a config module with one constant and one value that contain your package information and debug config.
 
 ```js
 grunt.initConfig({
@@ -346,6 +346,20 @@ angular.module('config', [])
 
 ;
 ```
+
+## FAQ
+
+#### How can I change the quote style?
+You can create your own template that escapes all `"`, but this is not a generell solution. Currently there is no easy way to change this. If you know a converter that can print out pure javascript instead of JSON, please tell me.
+
+#### How can I create multiple modules?
+Create for each module an own target and set the `dest`, `name` and `constants` parameter for each one.
+
+#### How can I create a CoffeeScript version of the module
+Till v0.5.0 this was supported natively by the plugin. Now you have to use the [grunt-js2coffee](https://github.com/jonschlinkert/grunt-js2coffee) plugin.
+
+#### Hey I like this project how can I help?
+Report bugs, propose new features or simply star the project that shows me that are people are interessted in this project.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
