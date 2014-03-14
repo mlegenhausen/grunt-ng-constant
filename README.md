@@ -26,28 +26,48 @@ In your project's Gruntfile, add a section named `ngconstant` to the data object
 grunt.initConfig({
   ngconstant: {
     options: {
-      // Task-specific options go here.
+      name: 'config',
+      dest: 'config.js',
+      constants: {
+        debug: true,
+        package: grunt.file.read('package.json')
+      }
     },
-    your_target: {
-      // Target-specific module configurations.
-      // This can be an array if you want to define multiple modules for a single target
-      // See the "Multiple Module Option" for further informations.
+    debug: {
+
     },
+    production: {
+      debug: false
+    }
   },
 })
 ```
 
 ### Options
 
+#### options.name
+Type: `String`
+Required
+
+The name of the constant module used in your angular project.
+
+#### options.dest
+Type: `String`
+Required
+
+The path where the generated constant module should be saved.
+
 #### options.space
 Type: `String`
 Default value: `'\t'`
+Optional
 
 A string that defines how the `JSON.stringify` method will prettify your code. You can get more information in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify).
 
 #### options.deps
 Type: `Array` or `Boolean`
 Default value: `[]`
+Optional
 
 An array that specifies the default dependencies a module should have. When your module should not have any modules, so you can append the constants to an already existing one, you can set `deps` to `false`.
 
@@ -72,12 +92,19 @@ Optional
 
 A boolean to toggle coffeescript output instead of javascript, using [`js2coffee`](https://github.com/rstacruz/js2coffee). Can also be assigned on a per-target basis.
 
-#### options.templatePath
+#### options.template
 Type: `String`
-Default value: `constant.tpl.ejs`
+Default value: `grunt.file.read('constant.tpl.ejs')`
 Optional
 
-Location of a custom template file for creating the output configuration file. Defaults to the provided constants template file if none provided.
+Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
+
+#### options.delimiters
+Type: `String`
+Default value: `ngconstant` which sets the delimiters to `{%` and `%}`.
+Optional
+
+
 
 ### Usage Examples
 
@@ -88,8 +115,10 @@ In this example I convert the package.json information in an angular module. So 
 grunt.initConfig({
   ngconstant: {
     dist: {
-      dest: 'dist/constants.js',
-      name: 'constants',
+      options: {
+        dest: 'dist/constants.js',
+        name: 'constants',
+      },
       constants: {
         package: grunt.file.readJSON('package.json')
       }
@@ -108,35 +137,33 @@ grunt.initConfig({
       coffee: true
     },
     dist: {
-      dest: 'dist/constants.coffee',
-      name: 'constants',
-      constants: {
-        package: grunt.file.readJSON('package.json')
-      }
+      options: {
+        dest: 'dist/constants.coffee',
+        name: 'constants'
+      },
+      package: grunt.file.readJSON('package.json')
     }
   },
 })
 ```
 
 #### Custom Options
-In this example we set custom configurations for the `space` and `deps` parameter. So we create a module that has `dep1` and `dep2` as dependency and defines to different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
+In this example we set custom configurations for the `space` and `deps` parameter. So we create a module that has `dep1` and `dep2` as dependency and defines two different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
 
 ```js
 grunt.initConfig({
   ngconstant: {
     options: {
       space: ' ',
-      deps: ['dep1', 'dep2']
+      deps: ['dep1', 'dep2'],
+      dest: 'dist/module.js',
+      name: 'someModule'
     },
     dist: {
-      dest: 'dist/module.js',
-      name: 'someModule',
-      constants: {
-        'constant1': 'some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify',
-        'constant2': {
-          'key1': 'value1',
-          'key2': 42
-        }
+      'constant1': 'some value you want to set as constant value. This can be of any type that can be transformed via JSON.stringify',
+      'constant2': {
+        'key1': 'value1',
+        'key2': 42
       }
     }
   },
@@ -167,21 +194,22 @@ The `wrap` option allows you to encapsulate the module in a closure. Simply set 
 grunt.initConfig({
   ngconstant: {
     options: {
-      space: ' ',
-      deps: ['dep1', 'dep2']
-    },
-    dist: {
       dest: 'tmp/wrap_options.js',
       name: 'module2',
-      deps: ['test'],
-      wrap: true,
-      constants: {
-        'constant1': {
-          key1: 123,
-          key2: 'value2',
-          foobar: false
-        }
+      wrap: true
+    },
+    dist: {
+      'constant1': {
+        key1: 123,
+        key2: 'value2',
+        foobar: false
       }
+    },
+    nowrap: { 
+      options: {
+        wrap: false // Disable wrapping for the 'nowrap' target
+      },
+      ...
     }
   },
 })
@@ -213,20 +241,15 @@ Here a RequireJS example:
 grunt.initConfig({
   ngconstant: {
     options: {
-      space: ' ',
-      deps: ['dep1', 'dep2']
-    },
-    dist: {
       dest: 'tmp/wrap_options.js',
       name: 'module2',
-      deps: ['test'],
-      wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return <%= __ngModule %> \n\n});',
-      constants: {
-        'constant1': {
-          key1: 123,
-          key2: 'value2',
-          foobar: false
-        }
+      wrap: 'define(["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
+    },
+    dist: {
+      'constant1': {
+        key1: 123,
+        key2: 'value2',
+        foobar: false
       }
     }
   },
@@ -236,7 +259,7 @@ grunt.initConfig({
 The resulting module looks like the following:
 
 ```
-define( ["angular", "ngResource", "ngCookies"], function() { 
+define(["angular", "ngResource", "ngCookies"], function() { 
  return angular.module("module2", ["test"])
 
 .constant("constant1", {
@@ -260,24 +283,18 @@ If you need the same configuration for all your targets you can use the `constan
 grunt.initConfig({
   ngconstant: {
     options: {
+      name: 'config',
+      dest: 'config.js',
       constants: {
         title: 'grunt-ng-constant',
-        debug: false
-      }
-    },
-    dev: {
-      name: 'config',
-      dest: 'build/config.js',
-      constants: {
         debug: true
       }
     },
+    dev: {
+      title: 'grunt-ng-constant-beta'
+    },
     prod: {
-      name: 'config',
-      dest: 'dist/config.js',
-      constants: {
-
-      }
+      debug: false
     }
   }
 });
@@ -285,17 +302,21 @@ grunt.initConfig({
 
 Which results in the following constants objects.
 
+For the target `dev`:
+
 ```js
-// For your dev target build/config.js
 angular.module('config', [])
 
-.constant('title', 'grunt-ng-constant')
+.constant('title', 'grunt-ng-constant-beta')
 
 .constant('debug', true)
 
 ;
+```
 
-// For your prod target dist/config.js
+For the target `prod`:
+
+```js
 angular.module('config', [])
 
 .constant('title', 'grunt-ng-constant')
@@ -304,35 +325,6 @@ angular.module('config', [])
 
 ;
 ```
-
-#### Multiple Module Option
-
-If you want to define multiple modules for a single target at once you wrap your target configuration in an array.
-
-```js
-grunt.initConfig({
-  ngconstant: {
-    dist: [
-      {
-        dest: 'dist/module1.js',
-        name: 'constants1',
-        constants: {
-          ...
-        }
-      },
-      {
-        dest: 'dist/module2.js',
-        name: 'constants2',
-        constants: {
-          ...
-        }
-      }
-    ]
-  },
-})
-```
-
-This will create two files with two different modules.
 
 #### CoffeeScript Module Option
 

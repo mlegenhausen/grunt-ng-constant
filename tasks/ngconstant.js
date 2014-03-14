@@ -11,7 +11,6 @@
 var path = require('path');
 
 var _ = require('lodash');
-var js2coffee = require('js2coffee');
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t {%= __ngModule %} \n})(angular);';
@@ -22,6 +21,9 @@ module.exports = function (grunt) {
     return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
   }
 
+  var defaultTemplate = grunt.file.read(TEMPLATE_PATH);
+
+  // Add delimiters that do not conflict with grunt
   grunt.template.addDelimiters(MODULE_NAME, '{%', '%}');
 
   grunt.registerMultiTask(MODULE_NAME, 'Dynamic angular constant generator task.', function () {
@@ -30,14 +32,15 @@ module.exports = function (grunt) {
       deps: [],
       wrap: '{%= __ngModule %}',
       coffee: false,
-      constants: {},
-      template: grunt.file.read(TEMPLATE_PATH),
-      delimiters: MODULE_NAME
+      template: defaultTemplate,
+      delimiters: MODULE_NAME,
+      constants: {}
     });
-    var module = this.data;
 
-    // Merge global configuration in first module
-    _.merge(options.constants, module.constants);
+    // Merge target configuration in global definition
+    _.merge(options.constants, _.pick(this.data, function (value, key) {
+      return key !== 'options';
+    }));
 
     // Create compiler data
     var constants = _.map(options.constants, function (value, name) {
@@ -49,8 +52,8 @@ module.exports = function (grunt) {
 
     // Create the module string
     var result = grunt.template.process(options.template, {
-      data: _.extend(grunt.config.getRaw(), {
-        moduleName: module.name,
+      data: _.extend({}, grunt.config.data, {
+        moduleName: options.name,
         deps: options.deps,
         constants: constants
       }),
@@ -63,7 +66,7 @@ module.exports = function (grunt) {
         options.wrap = DEFAULT_WRAP;
       }
       result = grunt.template.process(options.wrap, {
-        data: _.extend(grunt.config.getRaw(), {
+        data: _.extend({}, grunt.config.data, {
           '__ngModule': result
         }),
         delimiters: options.delimiters
@@ -72,12 +75,12 @@ module.exports = function (grunt) {
 
     // Javascript is built, convert to coffeescript
     if (options.coffee) {
-      result = js2coffee.build(result);
+      result = require('js2coffee').build(result);
     }
 
     // Write the module to disk
-    grunt.log.write('Creating module ' + module.name + ' at ' + module.dest + '...');
-    grunt.file.write(module.dest, result);
+    grunt.log.write('Creating module ' + options.name + ' at ' + options.dest + '...');
+    grunt.file.write(options.dest, result);
     grunt.log.ok();
   });
 };
