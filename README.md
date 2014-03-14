@@ -1,4 +1,4 @@
-# grunt-ng-constant
+# grunt-ng-constant [![Build Status](https://travis-ci.org/werk85/grunt-ng-constant.png?branch=master)](https://travis-ci.org/werk85/grunt-ng-constant)
 
 > Plugin for dynamic generation of angular constant and value modules.
 
