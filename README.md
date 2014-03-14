@@ -89,7 +89,7 @@ Type: `String` or `Boolean`
 Default value: `false`
 Optional
 
-A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
+A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 #### options.constants
 Type: `Object`, `String`, `Function`
