@@ -34,10 +34,12 @@ module.exports = function(grunt) {
         dest: 'tmp/empty_options.js',
         space: '\t',
         wrap: '{%= __ngModule %};',
-        constants: {
-          'constant1': {
-            global_key: 'global_value'
-          }
+        constants: function () {
+          return {
+            'constant1': {
+              global_key: 'global_value'
+            }
+          };
         }
       },
       empty_options: {
@@ -133,6 +135,13 @@ module.exports = function(grunt) {
         constants: {
           'constant1': 'value1'
         }
+      },
+      string_constants_options: {
+        options: {
+          dest: 'tmp/string_constants_options.js',
+          name: 'stringConstantsOptionsModule'
+        },
+        constants: 'test/constants.json'
       }
     },
 

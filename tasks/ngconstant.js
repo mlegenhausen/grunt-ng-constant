@@ -21,19 +21,18 @@ module.exports = function (grunt) {
     return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
   }
 
-  function evalConstants(obj) {
-    obj = _.result(obj, 'constants') || {};
-    if (_.isString(obj)) {
-      obj = grunt.file.readJSON(obj);
+  function resolveKey(key, obj) {
+    obj[key] = _.result(obj, key) || {};
+    if (_.isString(obj[key])) {
+      obj[key] = grunt.file.readJSON(obj[key]);
     }
-    if (!_.isObject(obj)) {
-      grunt.log.error('Parameter constants needs to be of type object');
+    if (!_.isObject(obj[key])) {
+      grunt.fail.warn('Parameter constants needs to be of type object');
     }
-    return obj;
+    return obj[key];
   }
 
   var defaultTemplate = grunt.file.read(TEMPLATE_PATH);
-
   // Add delimiters that do not conflict with grunt
   grunt.template.addDelimiters(MODULE_NAME, '{%', '%}');
 
@@ -48,7 +47,8 @@ module.exports = function (grunt) {
     });
 
     // Merge target configuration in global definition
-    _.merge(evalConstants(options), evalConstants(this.data));
+    var resolveConstants = _.bind(resolveKey, this, 'constants');
+    _.merge(resolveConstants(options), resolveConstants(this.data));
 
     // Create compiler data
     var constants = _.map(options.constants, function (value, name) {
