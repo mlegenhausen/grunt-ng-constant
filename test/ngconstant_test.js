@@ -77,16 +77,6 @@ exports.ng_constant = {
 
     test.done();
   },
-  coffee_options: function(test) {
-    test.expect(1);
-
-    // Was having whitespace problems
-    var actual = grunt.file.read('tmp/coffee_options.coffee').trim();
-    var expected = grunt.file.read('test/expected/coffee_options.coffee').trim();
-    test.equal(actual, expected, 'should output module in coffeescript');
-
-    test.done();
-  },
   template_options: function(test){
       test.expect(1);
       var actual = grunt.file.read('tmp/template_options.js');

@@ -31,7 +31,6 @@ module.exports = function (grunt) {
       space: '\t',
       deps: [],
       wrap: '{%= __ngModule %}',
-      coffee: false,
       template: defaultTemplate,
       delimiters: MODULE_NAME,
       constants: {}
@@ -44,9 +43,11 @@ module.exports = function (grunt) {
 
     // Create compiler data
     var constants = _.map(options.constants, function (value, name) {
+      // Allow lazy value evaluation
+      var obj = _.result(options.constants, name);
       return {
         name: name,
-        value: stringify(value, options.space)
+        value: stringify(obj, options.space)
       };
     });
 
@@ -71,11 +72,6 @@ module.exports = function (grunt) {
         }),
         delimiters: options.delimiters
       });
-    }
-
-    // Javascript is built, convert to coffeescript
-    if (options.coffee) {
-      result = require('js2coffee').build(result);
     }
 
     // Write the module to disk

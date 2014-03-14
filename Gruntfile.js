@@ -108,18 +108,6 @@ module.exports = function(grunt) {
           global_key: 'overriden_global_value'
         }
       },
-      coffee_options: {
-        options: {
-          coffee: true,
-          dest: 'tmp/coffee_options.coffee',
-          name: 'module1'
-        },
-        'constant1': {
-          key1: 'value1',
-          key2: 'value2'
-        },
-        'constant2': undefined
-      },
       template_options: {
         options: {
           template: grunt.file.read('test/custom.tpl.ejs'),
