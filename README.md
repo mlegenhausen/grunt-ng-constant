@@ -20,32 +20,35 @@ grunt.loadNpmTasks('grunt-ng-constant');
 ## The "ngconstant" task
 
 ### Overview
-In your project's Gruntfile, add a section named `ngconstant` to the data object passed into `grunt.initConfig()`.
+The following shows a minimum configuration for generating a config module with one constants that contain your package information.
 
 ```js
 grunt.initConfig({
   ngconstant: {
     options: {
       name: 'config',
-      dest: 'config_debug.js',
+      dest: 'config.js',
       constants: {
-        debug: true,
-        package: grunt.file.read('package.json')
+        package: grunt.file.readJSON('package.json')
       }
     },
-    debug: {
-
-    },
-    production: {
-      options: {
-        dest: 'config_prod.js'
-      },
-      constants: {
-        debug: false
-      }
+    build: {
     }
   },
 })
+```
+
+For the target `build` the resulting file `config.js` looks like this:
+
+```js
+angular.module('config', [])
+
+.constant('package', {
+  "version": "0.0.1",
+  ...
+})
+
+;
 ```
 
 ### Options
@@ -99,7 +102,7 @@ Custom template for creating the output constants file. Defaults to the default 
 
 #### options.delimiters
 Type: `String`
-Default value: `ngconstant` which sets the delimiters to `{%` and `%}`.
+Default value: `ngconstant` which sets the delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
 Optional
 
 
@@ -248,7 +251,7 @@ grunt.initConfig({
 
 The resulting module looks like the following:
 
-```
+```js
 define(["angular", "ngResource", "ngCookies"], function() { 
  return angular.module("module2", ["test"])
 
