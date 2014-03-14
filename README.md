@@ -89,7 +89,7 @@ Type: `String` or `Boolean`
 Default value: `false`
 Optional
 
-A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `<%= __ngModule %>` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
+A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 #### options.constants
 Type: `Object`, `String`, `Function`
@@ -365,6 +365,7 @@ Report bugs, propose new features or simply star the project that shows me that 
 
  * `dest` and `name` need to be placed under the `options` parameter.
  * Multimodule configuration has been removed to make the configuration more simple. If you need this in your project split your module array in multiple targets and define for each target the `dest` and `name` option.
+ * If you use your own wrapper or template change all delimiters from `<%` `%>` to `{%` `%}` or define your own ones via the `delimiters` option, but make sure you do not use the default grunt ones.
 
 ## Release History
  * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed [#12](https://github.com/werk85/grunt-ng-constant/issues/12).
