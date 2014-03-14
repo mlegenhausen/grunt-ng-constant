@@ -365,12 +365,12 @@ Report bugs, propose new features or simply star the project that shows me that 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
- * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed #12.
- * v0.4.8 - Closed #19, #23. Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://github.com/ggalmazor).
- * v0.4.7 - Closed #17.
- * v0.4.6 - Closed #16. Global constants module option added to README.
- * v0.4.5 - Closed #3, #11. The parameters `space`, `deps`, `wrap` and `coffee` are not available on per module base. Thanks to [jjt](https://github.com/jjt).
- * v0.4.4 - Closed #10
+ * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed [#12](https://github.com/werk85/grunt-ng-constant/issues/12).
+ * v0.4.8 - Closed [#19](https://github.com/werk85/grunt-ng-constant/issues/19), [#23](https://github.com/werk85/grunt-ng-constant/issues/23). Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://github.com/ggalmazor).
+ * v0.4.7 - Closed [#17](https://github.com/werk85/grunt-ng-constant/issues/17).
+ * v0.4.6 - Closed [#16](https://github.com/werk85/grunt-ng-constant/issues/16). Global constants module option added to README.
+ * v0.4.5 - Closed [#3](https://github.com/werk85/grunt-ng-constant/issues/3), [#11](https://github.com/werk85/grunt-ng-constant/issues/11). The parameters `space`, `deps`, `wrap` and `coffee` are not available on per module base. Thanks to [jjt](https://github.com/jjt).
+ * v0.4.4 - Closed [#10](https://github.com/werk85/grunt-ng-constant/issues/10)
  * v0.4.3 - Single constant option added. ejs dependency removed.
  * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
 
