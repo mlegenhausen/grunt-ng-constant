@@ -152,6 +152,32 @@ module.exports = function(grunt) {
           name: 'stringConstantsOptionsModule'
         },
         constants: 'test/constants.json'
+      },
+      source_serializer_options: {
+        options: {
+          dest: 'tmp/source_serializer_options.js',
+          name: 'sourceConstant',
+          serializer: 'source',
+        },
+        constants: {
+          constant1: [ 4, 5, 6, 'hello', {
+              a:2,
+              'b':3,
+              '1':4,
+              'if':5,
+              yes:true,
+              no:false,
+              nan:NaN,
+              infinity:Infinity,
+              'undefined':undefined,
+              'null':null,
+              foo: function(bar) {
+
+              }
+          },
+          /we$/gi,
+          new Date("Wed, 09 Aug 1995 00:00:00 GMT")]
+        }
       }
     },
 

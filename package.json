@@ -32,7 +32,9 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-nodeunit": "^0.3.3",
     "grunt": "~0.4.1",
-    "grunt-bump": "0.0.13"
+    "grunt-bump": "0.0.13",
+    "js-beautify": "^1.4.2",
+    "tosource": "^0.1.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

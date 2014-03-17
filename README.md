@@ -70,12 +70,12 @@ Required
 
 The path where the generated constant module should be saved.
 
-#### options.space
-Type: `String`
-Default value: `'\t'`
+#### options.beautify
+Type: `Object|Boolean`
+Default value: `{ indent_with_tabs: true }`
 Optional
 
-A string that defines how the `JSON.stringify` method will prettify your code. You can get more information in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/stringify).
+An configuration object for configuring the `js-beautify` module. All options can be found on the [js-beautify](https://github.com/einars/js-beautify) homepage. If you set `beautify` to `false` the beautification will be disabled.
 
 #### options.deps
 Type: `Array` or `Boolean`
@@ -117,6 +117,12 @@ Type: `String`
 Default value: `ngconstant` which sets the delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
 Optional
 
+#### options.serializer
+Type: `String|Function`
+Default value: `json`
+Optional
+
+If set to `json` the given object will be serialized via `JSON.stringify`. Another option `source` will use the [node-tosource](https://github.com/marcello3d/node-tosource) module (EXPERIMENTAL). If you want to define your own serializer use `function(obj, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
 
 
 ### Usage Examples

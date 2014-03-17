@@ -11,16 +11,22 @@
 var path = require('path');
 
 var _ = require('lodash');
+var toSource = require('tosource');
+var beautify = require('js-beautify').js_beautify;
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t {%= __ngModule %} \n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
+var SERIALIZERS = {
+  'json': function jsonSerializer(obj) {
+    return _.isUndefined(obj) ? 'undefined' : JSON.stringify(obj);
+  },
+  'source': function sourceSerializer(obj) {
+    return toSource(obj);
+  }
+};
 
 module.exports = function (grunt) {
-  function stringify(value, space) {
-    return _.isUndefined(value) ? 'undefined' : JSON.stringify(value, null, space);
-  }
-
   function resolveKey(key, obj) {
     obj[key] = _.result(obj, key) || {};
     if (_.isString(obj[key])) {
@@ -32,13 +38,12 @@ module.exports = function (grunt) {
     return obj[key];
   }
 
-  function transformData(data, space) {
-    return _.map(data, function (value, name) {
-      return {
-        name: name,
-        value: stringify(value, space)
-      };
-    });
+  function resolveSerializer(key) {
+    var serializer = SERIALIZERS[key] || key;
+    if (!_.isFunction(serializer)) {
+      grunt.fail.warn('Invalid serializer. Serializer needs to be a function.');
+    }
+    return serializer;
   }
 
   var defaultTemplate = grunt.file.read(TEMPLATE_PATH);
@@ -47,11 +52,14 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask(MODULE_NAME, 'Dynamic angular constant generator task.', function () {
     var options = this.options({
-      space: '\t',
       deps: [],
       wrap: '{%= __ngModule %}',
       template: defaultTemplate,
       delimiters: MODULE_NAME,
+      beautify: {
+        indent_with_tabs: true
+      },
+      serializer: 'json',
       constants: {},
       values: {}
     });
@@ -63,12 +71,23 @@ module.exports = function (grunt) {
     }, this);
 
     // Transform the data and create the module string
+    var serializer = resolveSerializer(options.serializer);
+
+    var transformData = _.bind(function dataTransformer(data) {
+      return _.map(data, function (value, name) {
+        return {
+          name: name,
+          value: serializer.call(this, value, options)
+        };
+      }, this);
+    }, this);
+
     var result = grunt.template.process(options.template, {
       data: _.extend({}, grunt.config.data, {
         moduleName: options.name,
         deps: options.deps,
-        constants: transformData(options.constants, options.space),
-        values: transformData(options.values, options.space)
+        constants: transformData(options.constants),
+        values: transformData(options.values)
       }),
       delimiters: options.delimiters
     });
@@ -84,6 +103,11 @@ module.exports = function (grunt) {
         }),
         delimiters: options.delimiters
       });
+    }
+
+    // Beautify after processing
+    if (options.beautify) {
+      result = beautify(result, options.beautify);
     }
 
     // Write the module to disk
