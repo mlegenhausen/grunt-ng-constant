@@ -89,7 +89,7 @@ Type: `String` or `Boolean`
 Default value: `false`
 Optional
 
-A boolean to active or deactive the automatic wrapping. A string who will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
+A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 #### options.constants
 Type: `Object`, `String`, `Function`
@@ -128,7 +128,7 @@ If set to `json` the given object will be serialized via `JSON.stringify`. Anoth
 ### Usage Examples
 
 #### Default Options
-In this example I convert the package.json information in an angular module. So I am able to display e.g. the current version of the application in the app.
+In this example I convert the package.json information to an angular module. So I am able to display such things as the current version of the application in the app.
 
 ```js
 grunt.initConfig({
@@ -149,10 +149,10 @@ grunt.initConfig({
 })
 ```
 
-__Note__: In generell for all following examples the applied functionality on `constants` can also be used in for the `values` parameter.
+__Note__: In most cases for all following examples the applied functionality on `constants` can also be achieved with the `values` parameter.
 
 #### Custom Options
-In this example we set custom configurations for the `space` and `deps` parameter. So we create a module that has `dep1` and `dep2` as dependency and defines two different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
+In this example we set custom configurations for the `space` and `deps` parameters. So we create a module that has `dep1` and `dep2` as dependencies and defines two different constants `constants1` and `constants2` with custom values. The `space` parameter is set to a ` `.
 
 ```js
 grunt.initConfig({
@@ -293,7 +293,7 @@ __Note__: For longer wrapping templates it is recommended to use `grunt.file.rea
 
 #### Global Constants option
 
-If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration with the global one. If you want don't want to merge, you can use the per target `constants` option to override everything.
+If you need the same configuration for all your targets you can use the `constants` option to automatically merge your per target configuration into the global one. If you don't want to merge, you can use the per target `constants` option to override everything.
 
 ```js
 grunt.initConfig({
@@ -356,10 +356,10 @@ angular.module('config', [])
 ## FAQ
 
 #### How can I change the quote style?
-You can create your own template that escapes all `"`, but this is not a generell solution. Currently there is no easy way to change this. If you know a converter that can print out pure javascript instead of JSON, please tell me.
+You can create your own template that escapes all `"`, but this is not a general solution. Currently there is no easy way to change this. If you know a converter that can print out pure javascript instead of JSON, please tell me.
 
 #### How can I create multiple modules?
-Create for each module an own target and set the `dest`, `name` and `constants` parameter for each one.
+Create a custom target for each module and set the `dest`, `name` and `constants` parameter for each one.
 
 #### How can I create a CoffeeScript version of the module
 Till v0.5.0 this was supported natively by the plugin. Now you have to use the [grunt-js2coffee](https://github.com/jonschlinkert/grunt-js2coffee) plugin.
