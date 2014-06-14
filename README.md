@@ -77,6 +77,13 @@ Optional
 
 An configuration object for configuring the `js-beautify` module. All options can be found on the [js-beautify](https://github.com/einars/js-beautify) homepage. If you set `beautify` to `false` the beautification will be disabled.
 
+#### options.jsbeautifyrc
+Type: `String|Boolean`
+Default value: `.jsbeautifyrc`
+Optional
+
+A [findup-sync](https://github.com/cowboy/node-findup-sync) compatible pattern/path to a `.jsbeautifyrc` file. Overrides options set by `beautify`, unless you set `jsbeautifyrc` to `false`.
+
 #### options.deps
 Type: `Array` or `Boolean`
 Default value: `[]`

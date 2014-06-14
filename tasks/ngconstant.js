@@ -13,6 +13,7 @@ var path = require('path');
 var _ = require('lodash');
 var toSource = require('tosource');
 var beautify = require('js-beautify').js_beautify;
+var findup = require('findup-sync');
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\t {%= __ngModule %} \n})(angular);';
@@ -59,10 +60,18 @@ module.exports = function (grunt) {
       beautify: {
         indent_with_tabs: true
       },
+      jsbeautifyrc: '.jsbeautifyrc',
       serializer: 'json',
       constants: {},
       values: {}
     });
+
+    if(options.jsbeautifyrc) {
+      var jsbeautifyrc = findup(options.jsbeautifyrc);
+      if(jsbeautifyrc) {
+        options.beautify = grunt.file.readJSON(jsbeautifyrc);
+      }
+    }
 
     // Merge target configuration in global definition
     _.forEach(['constants', 'values'], function (key) {
