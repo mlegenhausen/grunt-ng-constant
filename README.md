@@ -165,12 +165,11 @@ grunt.initConfig({
     },
     dist: {
       constants: {
-        'constant1': 'constant1.json', // Load json from path
-        'constant2': {
+        'constant1': {
           'key1': 'value1',
           'key2': 42
         },
-        'constant3': function () { // Exec function first on task run
+        'constant2': function () { // Exec function first on task run
           return 'some lazy return value'
         }
       }
@@ -184,15 +183,30 @@ The resulting module looks like the following:
 ```js
 angular.module("someModule", ["dep1", "dep2"])
 
-.constant("constant1", "some value you want to set as constant value.
-  This can be of any type that can be transformed via JSON.stringify")
-
-.constant("constant2", {
+.constant("constant1", {
   "key1": "value1",
   "key2": 42
 })
 
+.constant("constant2", "some lazy return value")
+
 ;
+```
+
+You can also load the constants definition directly from a file:
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      dest: 'dist/module.js',
+      name: 'someModule'
+    },
+    dist: {
+      constants: 'constants.json'
+    }
+  },
+})
 ```
 
 #### Wrap Option
