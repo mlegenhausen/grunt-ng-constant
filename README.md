@@ -169,9 +169,7 @@ grunt.initConfig({
           'key1': 'value1',
           'key2': 42
         },
-        'constant2': function () { // Exec function first on task run
-          return 'some lazy return value'
-        }
+        'constant2': 'value2'
       }
     }
   },
@@ -188,7 +186,7 @@ angular.module("someModule", ["dep1", "dep2"])
   "key2": 42
 })
 
-.constant("constant2", "some lazy return value")
+.constant("constant2", "value2")
 
 ;
 ```
@@ -204,6 +202,24 @@ grunt.initConfig({
     },
     dist: {
       constants: 'constants.json'
+    }
+  },
+})
+```
+
+Or if you want to calculate the constants value at runtime you can create a lazy evaluated method:
+
+```js
+grunt.initConfig({
+  ngconstant: {
+    options: {
+      dest: 'dist/module.js',
+      name: 'someModule'
+    },
+    dist: {
+      constants: function () {
+        return new Date();
+      }
     }
   },
 })
