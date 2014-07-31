@@ -15,7 +15,7 @@ var toSource = require('tosource');
 var beautify = require('js-beautify').js_beautify;
 
 var MODULE_NAME = 'ngconstant';
-var DEFAULT_WRAP = '(function(angular, undefined) {\n{%= __ngModule %}\n})(angular);';
+var DEFAULT_WRAP = '(function(angular, undefined) {\n\'use strict\';\n\n{%= __ngModule %}\n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 var SERIALIZERS = {
   'json': function jsonSerializer(obj) {
