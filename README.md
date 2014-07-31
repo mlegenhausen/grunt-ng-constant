@@ -77,13 +77,6 @@ Optional
 
 An array that specifies the default dependencies a module should have. When your module should not have any modules, so you can append the constants to an already existing one, you can set `deps` to `false`.
 
-#### options.wrap
-Type: `String` or `Boolean`
-Default value: `false`
-Optional
-
-A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
-
 #### options.constants
 Type: `Object`, `String`, `Function`
 Default value: `{}`
@@ -97,6 +90,13 @@ Default value: `{}`
 Optional
 
 If it is an object it gets automatically merged in all target `values` definitions. This option should be used when you need a global `values` definition for all your targets.
+
+#### options.wrap
+Type: `String` or `Boolean`
+Default value: `false`
+Optional
+
+A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
 #### options.template
 Type: `String`
@@ -115,8 +115,14 @@ Type: `String|Function`
 Default value: `json`
 Optional
 
-If set to `json` the given object will be serialized via `JSON.stringify`. Another option `source` will use the [node-tosource](https://github.com/marcello3d/node-tosource) module (EXPERIMENTAL). If you want to define your own serializer use `function(obj, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
+If set to `json` the given object will be serialized via `JSON.stringify`. Another option `source` will use the [node-tosource](https://github.com/marcello3d/node-tosource) module. If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
 
+#### options.serializerOptions
+Type: `Object`
+Default value: `{}`
+Optional
+
+Use this option for setting specific options for the given serializer. For example the `serializerOptions` for the `json` serializer support the keys `replacer` and `space`. See the [official documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) for more information.
 
 ### Usage Examples
 
@@ -379,25 +385,29 @@ angular.module('config', [])
 ## FAQ
 
 #### How can I change the quote style?
-You can create your own template that escapes all `"`, but this is not a general solution. Currently there is no easy way to change this. If you know a converter that can print out pure javascript instead of JSON, please tell me.
+You can create your own template that escapes all `"`, but this is not a general solution. Currently there is no easy way to change this. All available solutions use double quotes for the output.
+
+#### How can I change the style of the generated code?
+If the code looks to ugly for you. You can use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier).
 
 #### How can I create multiple modules?
-Create a custom target for each module and set the `dest`, `name` and `constants` parameter for each one.
+Create a custom target for each module and set the `dest`, `name`, `constants` and `values` parameter for each one.
 
 #### How can I create a CoffeeScript version of the module
-Till v0.5.0 this was supported natively by the plugin. Now you have to use the [grunt-js2coffee](https://github.com/jonschlinkert/grunt-js2coffee) plugin.
+Till v1.0.0 this was supported natively by the plugin. Now you have to use the [grunt-js2coffee](https://github.com/jonschlinkert/grunt-js2coffee) plugin.
 
 #### Hey I like this project how can I help?
 Report bugs, propose new features or simply star the project that shows me that are people are interessted in this project.
 
-## Upgrade from v0.4.x to v0.5.x
+## Upgrade from v0.5.x to v1.0.0
 
- * `dest` and `name` need to be placed under the `options` parameter.
- * Multimodule configuration has been removed to make the configuration more simple. If you need this in your project split your module array in multiple targets and define for each target the `dest` and `name` option.
- * If you use your own wrapper or template change all delimiters from `<%` `%>` to `{%` `%}` or define your own ones via the `delimiters` option, but make sure you do not use the default grunt ones.
+ * `js-beautify` is removed from this project. If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
+ * All options for the serializers moved to the `serializerOptions` parameter.
+ * If possible I use single quotes instead of double quotes. This does currently not include the seralizerd `constants` and `values` values.
+ * The default wrapper now includes `'use strict';`.
 
 ## Release History
- * v0.5.0 - Completely reworked configuration. Not backwards compatible. Closed [#12](https://github.com/werk85/grunt-ng-constant/issues/12).
+ * v1.0.0 - More unix style. More strict and single quoted.
  * v0.4.8 - Closed [#19](https://github.com/werk85/grunt-ng-constant/issues/19), [#23](https://github.com/werk85/grunt-ng-constant/issues/23). Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://github.com/ggalmazor).
  * v0.4.7 - Closed [#17](https://github.com/werk85/grunt-ng-constant/issues/17).
  * v0.4.6 - Closed [#16](https://github.com/werk85/grunt-ng-constant/issues/16). Global constants module option added to README.
