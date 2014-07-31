@@ -15,7 +15,7 @@ var toSource = require('tosource');
 var beautify = require('js-beautify').js_beautify;
 
 var MODULE_NAME = 'ngconstant';
-var DEFAULT_WRAP = '(function(angular, undefined) {\n\t {%= __ngModule %} \n})(angular);';
+var DEFAULT_WRAP = '(function(angular, undefined) {\n{%= __ngModule %}\n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 var SERIALIZERS = {
   'json': function jsonSerializer(obj) {
@@ -56,9 +56,6 @@ module.exports = function (grunt) {
       wrap: '{%= __ngModule %}',
       template: defaultTemplate,
       delimiters: MODULE_NAME,
-      beautify: {
-        indent_with_tabs: true
-      },
       serializer: 'json',
       constants: {},
       values: {}
@@ -103,11 +100,6 @@ module.exports = function (grunt) {
         }),
         delimiters: options.delimiters
       });
-    }
-
-    // Beautify after processing
-    if (options.beautify) {
-      result = beautify(result, options.beautify);
     }
 
     // Write the module to disk

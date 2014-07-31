@@ -95,7 +95,7 @@ module.exports = function(grunt) {
       custom_wrap_options: {
         options: {
           deps: ['test'],
-          wrap: 'define( ["angular", "ngResource", "ngCookies"], function() { \n return {%= __ngModule %} \n\n});',
+          wrap: 'define(["angular", "ngResource", "ngCookies"], function() {\nreturn {%= __ngModule %}\n\n});',
           dest: 'tmp/custom_wrap_options.js',
           name: 'module2'
         },

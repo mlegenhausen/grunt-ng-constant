@@ -70,13 +70,6 @@ Required
 
 The path where the generated constant module should be saved.
 
-#### options.beautify
-Type: `Object|Boolean`
-Default value: `{ indent_with_tabs: true }`
-Optional
-
-An configuration object for configuring the `js-beautify` module. All options can be found on the [js-beautify](https://github.com/einars/js-beautify) homepage. If you set `beautify` to `false` the beautification will be disabled.
-
 #### options.deps
 Type: `Array` or `Boolean`
 Default value: `[]`

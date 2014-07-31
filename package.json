@@ -51,7 +51,6 @@
   ],
   "dependencies": {
     "lodash": "~2.4.1",
-    "js-beautify": "^1.4.2",
     "tosource": "^0.1.1"
   }
 }
