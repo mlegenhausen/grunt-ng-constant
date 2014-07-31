@@ -26,6 +26,17 @@ var SERIALIZERS = {
 };
 
 module.exports = function (grunt) {
+  function requiredOptions(options, properties) {
+    var pluralize = grunt.util.pluralize;
+    var missing = properties.filter(function (key) {
+      return !options[key];
+    });
+
+    if (!_.isEmpty(missing)) {
+      throw grunt.util.error('Required option propert' + pluralize(missing.length, 'y/ies') + ' ' + missing.join(', ') + ' is missing');
+    }
+  }
+
   function resolveKey(key, obj) {
     obj[key] = _.result(obj, key) || {};
     if (_.isString(obj[key])) {
@@ -61,6 +72,9 @@ module.exports = function (grunt) {
       values: {}
     });
 
+    // Check if name and dest are givein in the options
+    requiredOptions(options, ['name', 'dest']);
+
     // Merge target configuration in global definition
     _.forEach(['constants', 'values'], function (key) {
       var resolve = _.bind(resolveKey, this, key);
@@ -70,14 +84,14 @@ module.exports = function (grunt) {
     // Transform the data and create the module string
     var serializer = resolveSerializer(options.serializer);
 
-    var transformData = _.bind(function dataTransformer(data) {
+    var transformData = function dataTransformer(data) {
       return _.map(data, function (value, name) {
         return {
           name: name,
           value: serializer.call(this, value, options.serializerOptions, options)
         };
       }, this);
-    }, this);
+    }.bind(this);
 
     var result = grunt.template.process(options.template, {
       data: _.extend({}, grunt.config.data, {

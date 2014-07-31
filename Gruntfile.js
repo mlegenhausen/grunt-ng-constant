@@ -42,9 +42,6 @@ module.exports = function(grunt) {
           };
         }
       },
-      empty_options: {
-
-      },
       default_options: {
         options: {
           dest: 'tmp/default_options.js',
