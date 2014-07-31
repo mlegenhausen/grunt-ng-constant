@@ -1,7 +1,7 @@
-angular.module("{%- moduleName %}"{% if (deps) { %}, {%= JSON.stringify(deps) %}{% } %})
+angular.module('{%- moduleName %}'{% if (deps) { %}, {%= JSON.stringify(deps) %}{% } %})
 {% constants.forEach(function (constant) { %}
-.constant("{%- constant.name %}", {%= constant.value %})
+.constant('{%- constant.name %}', {%= constant.value %})
 {% }); values.forEach(function (value) { %}
-.value("{%- value.name %}", {%= value.value %})
+.value('{%- value.name %}', {%= value.value %})
 {% }) %}
 ;
