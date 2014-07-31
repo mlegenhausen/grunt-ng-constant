@@ -17,11 +17,11 @@ var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\'use strict\';\n\n{%= __ngModule %}\n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 var SERIALIZERS = {
-  'json': function jsonSerializer(obj) {
-    return _.isUndefined(obj) ? 'undefined' : JSON.stringify(obj);
+  'json': function jsonSerializer(obj, serializerOptions) {
+    return _.isUndefined(obj) ? 'undefined' : JSON.stringify(obj, serializerOptions.replacer, serializerOptions.space);
   },
-  'source': function sourceSerializer(obj) {
-    return toSource(obj);
+  'source': function sourceSerializer(obj, serializerOptions) {
+    return toSource(obj, serializerOptions.filter, serializerOptions.indent, serializerOptions.startingIndent);
   }
 };
 
@@ -56,6 +56,7 @@ module.exports = function (grunt) {
       template: defaultTemplate,
       delimiters: MODULE_NAME,
       serializer: 'json',
+      serializerOptions: {},
       constants: {},
       values: {}
     });
@@ -73,7 +74,7 @@ module.exports = function (grunt) {
       return _.map(data, function (value, name) {
         return {
           name: name,
-          value: serializer.call(this, value, options)
+          value: serializer.call(this, value, options.serializerOptions, options)
         };
       }, this);
     }, this);
