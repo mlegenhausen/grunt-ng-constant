@@ -59,15 +59,6 @@ exports.ng_constant = {
 
     test.done();
   },
-  simple_default_options: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/simple_default_options.js');
-    var expected = grunt.file.read('test/expected/default_options.js');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
-
-    test.done();
-  },
   global_constants_options: function(test) {
     test.expect(1);
 

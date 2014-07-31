@@ -107,24 +107,6 @@ module.exports = function(grunt) {
           }
         }
       },
-      simple_default_options: {
-        options: {
-          dest: 'tmp/simple_default_options.js',
-          name: 'module1'
-        },
-        constants: {
-          'constant1': {
-            key1: 'value1',
-            key2: 'value2'
-          },
-          'constant2': undefined
-        },
-        values: {
-          'value1': {
-            key1: 'value1'
-          }
-        }
-      },
       global_constants_options: {
         options: {
           dest: 'tmp/global_constants_options.js',
