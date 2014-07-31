@@ -1,7 +1,7 @@
 {
   "name": "grunt-ng-constant",
   "description": "Plugin for dynamic generation of angular constant modules.",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/werk85/grunt-ng-constant",
   "author": {
     "name": "Malte Legenhausen",
@@ -28,11 +28,11 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "^0.9.2",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-nodeunit": "^0.3.3",
     "grunt": "~0.4.1",
-    "grunt-bump": "0.0.13"
+    "grunt-bump": "0.0.15",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
