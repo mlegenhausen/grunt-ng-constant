@@ -98,18 +98,6 @@ Optional
 
 A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
-#### options.template
-Type: `String`
-Default value: `grunt.file.read('constant.tpl.ejs')`
-Optional
-
-Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
-
-#### options.delimiters
-Type: `String`
-Default value: `ngconstant` which sets the delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
-Optional
-
 #### options.serializer
 Type: `String|Function`
 Default value: `jju`
@@ -129,6 +117,19 @@ Default value: `{indent: '', no_trailing_comma: true}`
 Optional
 
 Use this option for setting specific options for the given serializer. The default config configures the [jju](https://github.com/rlidwka/jju) stringify method. See the documentation for more information of possible options.
+
+#### options.template
+Type: `String`
+Default value: `grunt.file.read('constant.tpl.ejs')`
+Optional
+
+Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
+
+#### options.delimiters
+Type: `String`
+Default value: `ngconstant` which sets the template delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
+Optional
+
 
 ### Usage Examples
 
