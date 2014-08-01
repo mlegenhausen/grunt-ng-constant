@@ -11,12 +11,16 @@
 var path = require('path');
 
 var _ = require('lodash');
+var jju = require('jju');
 var toSource = require('tosource');
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\'use strict\';\n\n{%= __ngModule %}\n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 var SERIALIZERS = {
+  'jju': function jjuSerializer(obj, serializerOptions) {
+    return _.isUndefined(obj) ? 'undefined' : jju.stringify(obj, serializerOptions);
+  },
   'json': function jsonSerializer(obj, serializerOptions) {
     return _.isUndefined(obj) ? 'undefined' : JSON.stringify(obj, serializerOptions.replacer, serializerOptions.space);
   },
@@ -66,8 +70,11 @@ module.exports = function (grunt) {
       wrap: '{%= __ngModule %}',
       template: defaultTemplate,
       delimiters: MODULE_NAME,
-      serializer: 'json',
-      serializerOptions: {},
+      serializer: 'jju',
+      serializerOptions: {
+        indent: '',
+        no_trailing_comma: true
+      },
       constants: {},
       values: {}
     });

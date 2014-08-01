@@ -112,17 +112,23 @@ Optional
 
 #### options.serializer
 Type: `String|Function`
-Default value: `json`
+Default value: `jju`
 Optional
 
-If set to `json` the given object will be serialized via `JSON.stringify`. Another option `source` will use the [node-tosource](https://github.com/marcello3d/node-tosource) module. If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
+Available options:
+
+ * `jju` (Default) Uses the [jju](https://github.com/rlidwka/jju) stringify method.
+ * `json` Uses `JSON.stringify` for serialization.
+ * `tosource` Use the [node-tosource](https://github.com/marcello3d/node-tosource) module.
+
+If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
 
 #### options.serializerOptions
 Type: `Object`
-Default value: `{}`
+Default value: `{indent: '', no_trailing_comma: true}`
 Optional
 
-Use this option for setting specific options for the given serializer. For example the `serializerOptions` for the `json` serializer support the keys `replacer` and `space`. See the [official documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) for more information.
+Use this option for setting specific options for the given serializer. The default config configures the [jju](https://github.com/rlidwka/jju) stringify method. See the documentation for more information of possible options.
 
 ### Usage Examples
 
@@ -383,9 +389,6 @@ angular.module('config', [])
 ```
 
 ## FAQ
-
-#### How can I change the quote style?
-You can create your own template that escapes all `"`, but this is not a general solution. Currently there is no easy way to change this. All available solutions use double quotes for the output.
 
 #### How can I change the style of the generated code?
 If the code looks to ugly for you. You can use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier).

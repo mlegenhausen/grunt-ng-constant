@@ -50,6 +50,7 @@
     "generator"
   ],
   "dependencies": {
+    "jju": "^1.0.4",
     "lodash": "~2.4.1",
     "tosource": "^0.1.1"
   }

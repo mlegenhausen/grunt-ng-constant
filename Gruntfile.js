@@ -62,7 +62,7 @@ module.exports = function(grunt) {
       },
       custom_options: {
         options: {
-          deps: ['test'],
+          deps: ['test1', 'test2'],
           dest: 'tmp/custom_options.js',
           name: 'module2'
         },
