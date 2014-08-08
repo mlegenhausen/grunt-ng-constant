@@ -109,7 +109,7 @@ Available options:
  * `json` Uses `JSON.stringify` for serialization.
  * `tosource` Use the [node-tosource](https://github.com/marcello3d/node-tosource) module.
 
-If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
+If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }`. `this` will be set to the plugin context.
 
 #### options.serializerOptions
 Type: `Object`
@@ -405,9 +405,9 @@ Report bugs, propose new features or simply star the project that shows me that 
 
 ## Upgrade from v0.5.x to v1.0.0
 
- * `js-beautify` is removed from this project. If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
+ * `js-beautify` is removed from this project (more unix style). If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
  * All options for the serializers moved to the `serializerOptions` parameter.
- * If possible I use single quotes instead of double quotes. This does currently not include the seralizerd `constants` and `values` values.
+ * All output now uses single quotes as default. Thanks to [jju](https://github.com/rlidwka/jju).
  * The default wrapper now includes `'use strict';`.
 
 ## Release History
