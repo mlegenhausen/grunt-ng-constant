@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('{%- moduleName %}'{% if (deps) { %}, [{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
 {% constants.forEach(function (constant) { %}
 .constant('{%- constant.name %}', {%= constant.value %})
