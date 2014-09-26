@@ -213,7 +213,7 @@ grunt.initConfig({
 })
 ```
 
-Or if you want to calculate the constants value at runtime you can create a lazy evaluated method:
+Or if you want to calculate the constants value at runtime you can create a lazy evaluated method which should be used if you generate your json file during the build process.
 
 ```js
 grunt.initConfig({
@@ -224,7 +224,9 @@ grunt.initConfig({
     },
     dist: {
       constants: function () {
-        return new Date();
+        return {
+          lazyConfig: grunt.file.readJSON('build/lazy-config.json')
+        };
       }
     }
   },
