@@ -66,7 +66,7 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask(MODULE_NAME, 'Dynamic angular constant generator task.', function () {
     var options = this.options({
-      deps: [],
+      deps: null,
       wrap: '{%= __ngModule %}',
       template: defaultTemplate,
       delimiters: MODULE_NAME,
