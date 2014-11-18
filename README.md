@@ -98,18 +98,6 @@ Optional
 
 A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
-#### options.template
-Type: `String`
-Default value: `grunt.file.read('constant.tpl.ejs')`
-Optional
-
-Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
-
-#### options.delimiters
-Type: `String`
-Default value: `ngconstant` which sets the delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
-Optional
-
 #### options.serializer
 Type: `String|Function`
 Default value: `jju`
@@ -121,7 +109,7 @@ Available options:
  * `json` Uses `JSON.stringify` for serialization.
  * `tosource` Use the [node-tosource](https://github.com/marcello3d/node-tosource) module.
 
-If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }´. `this` will be set to the plugin context.
+If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }`. `this` will be set to the plugin context.
 
 #### options.serializerOptions
 Type: `Object`
@@ -129,6 +117,19 @@ Default value: `{indent: '', no_trailing_comma: true}`
 Optional
 
 Use this option for setting specific options for the given serializer. The default config configures the [jju](https://github.com/rlidwka/jju) stringify method. See the documentation for more information of possible options.
+
+#### options.template
+Type: `String`
+Default value: `grunt.file.read('constant.tpl.ejs')`
+Optional
+
+Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
+
+#### options.delimiters
+Type: `String`
+Default value: `ngconstant` which sets the template delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
+Optional
+
 
 ### Usage Examples
 
@@ -212,7 +213,7 @@ grunt.initConfig({
 })
 ```
 
-Or if you want to calculate the constants value at runtime you can create a lazy evaluated method:
+Or if you want to calculate the constants value at runtime you can create a lazy evaluated method which should be used if you generate your json file during the build process.
 
 ```js
 grunt.initConfig({
@@ -223,7 +224,9 @@ grunt.initConfig({
     },
     dist: {
       constants: function () {
-        return new Date();
+        return {
+          lazyConfig: grunt.file.readJSON('build/lazy-config.json')
+        };
       }
     }
   },
@@ -404,9 +407,9 @@ Report bugs, propose new features or simply star the project that shows me that 
 
 ## Upgrade from v0.5.x to v1.0.0
 
- * `js-beautify` is removed from this project. If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
+ * `js-beautify` is removed from this project (more unix style). If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
  * All options for the serializers moved to the `serializerOptions` parameter.
- * If possible I use single quotes instead of double quotes. This does currently not include the seralizerd `constants` and `values` values.
+ * All output now uses single quotes as default. Thanks to [jju](https://github.com/rlidwka/jju).
  * The default wrapper now includes `'use strict';`.
 
 ## Release History
