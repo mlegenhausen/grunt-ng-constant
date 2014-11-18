@@ -32,6 +32,15 @@ exports.ng_constant = {
 
     test.done();
   },
+  no_deps_options: function (test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_deps_options.js');
+    var expected = grunt.file.read('test/expected/no_deps_options.js');
+    test.equal(actual, expected, 'should create a constants module without dependencies');
+
+    test.done();
+  },
   custom_options: function(test) {
     test.expect(1);
 

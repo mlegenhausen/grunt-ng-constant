@@ -60,6 +60,13 @@ module.exports = function(grunt) {
           }
         }
       },
+      no_deps_options: {
+        options: {
+          deps: false,
+          name: 'module1',
+          dest: 'tmp/no_deps_options.js'
+        }
+      },
       custom_options: {
         options: {
           deps: ['test1', 'test2'],
