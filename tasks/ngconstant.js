@@ -2,7 +2,7 @@
  * grunt-ng-constant
  * https://github.com/werk85/grunt-ng-constant
  *
- * Copyright (c) 2013 werk85
+ * Copyright (c) 2014 werk85
  * Licensed under the MIT license.
  */
 
