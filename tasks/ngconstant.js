@@ -101,7 +101,7 @@ module.exports = function (grunt) {
     }.bind(this);
 
     var result = grunt.template.process(options.template, {
-      data: _.extend({}, grunt.config.data, {
+      data: _.extend({}, grunt.config.get('data'), {
         moduleName: options.name,
         deps: options.deps,
         constants: transformData(options.constants),
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         options.wrap = DEFAULT_WRAP;
       }
       result = grunt.template.process(options.wrap, {
-        data: _.extend({}, grunt.config.data, {
+        data: _.extend({}, grunt.config.get('data'), {
           '__ngModule': result
         }),
         delimiters: options.delimiters
