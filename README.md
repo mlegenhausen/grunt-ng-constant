@@ -405,23 +405,6 @@ Till v1.0.0 this was supported natively by the plugin. Now you have to use the [
 #### Hey I like this project how can I help?
 Report bugs, propose new features or simply star the project that shows me that are people are interessted in this project.
 
-## Upgrade from v0.5.x to v1.0.0
-
- * `js-beautify` is removed from this project (more unix style). If you need good looking code use [grunt-jsbeautifyer](https://github.com/vkadam/grunt-jsbeautifier) as additional task.
- * All options for the serializers moved to the `serializerOptions` parameter.
- * All output now uses single quotes as default. Thanks to [jju](https://github.com/rlidwka/jju).
- * The default wrapper now includes `'use strict';`.
-
-## Release History
- * v1.0.0 - More unix style. More strict and single quoted.
- * v0.4.8 - Closed [#19](https://github.com/werk85/grunt-ng-constant/issues/19), [#23](https://github.com/werk85/grunt-ng-constant/issues/23). Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://github.com/ggalmazor).
- * v0.4.7 - Closed [#17](https://github.com/werk85/grunt-ng-constant/issues/17).
- * v0.4.6 - Closed [#16](https://github.com/werk85/grunt-ng-constant/issues/16). Global constants module option added to README.
- * v0.4.5 - Closed [#3](https://github.com/werk85/grunt-ng-constant/issues/3), [#11](https://github.com/werk85/grunt-ng-constant/issues/11). The parameters `space`, `deps`, `wrap` and `coffee` are not available on per module base. Thanks to [jjt](https://github.com/jjt).
- * v0.4.4 - Closed [#10](https://github.com/werk85/grunt-ng-constant/issues/10)
- * v0.4.3 - Single constant option added. ejs dependency removed.
- * v0.4.2 - Wrap option added. Thanks to [gabrielmancini](https://github.com/gabrielmancini).
-
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
