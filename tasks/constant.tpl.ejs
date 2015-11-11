@@ -1,7 +1,26 @@
 angular.module('{%- moduleName %}'{% if (deps) { %}, [{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
+
 {% constants.forEach(function (constant) { %}
-.constant('{%- constant.name %}', {%= constant.value %})
-{% }); values.forEach(function (value) { %}
+.constant('{%- constant.name %}',
+    {% if (constant.vars) { %}
+        (function() {
+            {% for (var prop in constant.vars) { %}
+                var {%= prop %} = '{%= constant.vars[prop] %}';
+            {% } %}
+            return {
+                {% for (var prop in constant.value) { %}
+                    {% if (constant.value.hasOwnProperty(prop)) { %}
+                        {%= prop %} : {%= constant.value[prop] %},
+                    {% } %}
+                {% } %}
+            }
+        })())
+    {% } else { %}
+        {%= constant.value %})
+    {% } %}
+{% });
+
+values.forEach(function (value) { %}
 .value('{%- value.name %}', {%= value.value %})
 {% }) %}
 ;

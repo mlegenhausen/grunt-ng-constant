@@ -147,22 +147,70 @@ module.exports = function(grunt) {
         },
         constants: {
           constant1: [ 4, 5, 6, 'hello', {
-              a:2,
-              'b':3,
-              '1':4,
-              'if':5,
-              yes:true,
-              no:false,
-              nan:NaN,
-              infinity:Infinity,
-              'undefined':undefined,
-              'null':null,
-              foo: function(bar) {
+            a:2,
+            'b':3,
+            '1':4,
+            'if':5,
+            yes:true,
+            no:false,
+            nan:NaN,
+            infinity:Infinity,
+            'undefined':undefined,
+            'null':null,
+            foo: function(bar) {
 
-              }
+            }
           },
-          /we$/gi,
-          new Date("Wed, 09 Aug 1995 00:00:00 GMT")]
+            /we$/gi,
+            new Date("Wed, 09 Aug 1995 00:00:00 GMT")]
+        }
+      },
+      var_options: {
+        options: {
+          dest: 'tmp/var_options.js',
+          name: 'module1',
+        },
+        space: ' ',
+        wrap: '{%= __ngModule %};',
+        constants: {
+          'constant1': {
+            vars: {
+              var1: 'v1',
+              var2: 'v2'
+            },
+            key1: '"value1"',
+            key2: "var1 + 'value2'",
+            key3: "var1 + 'value2' + var2",
+            key4: "var1 + var2",
+            key5: "var2",
+            key6: "'value2'"
+          },
+          'constant2': undefined
+        },
+        values: {
+          'value1': {
+            key1: 'value1'
+          }
+        }
+      }
+    },
+
+    uglify: {
+      beautify_target: {
+        options: {
+          beautify: true
+        },
+        files: {
+          'tmp/default_options.js': ['tmp/default_options.js'],
+          'tmp/no_deps_options.js': ['tmp/no_deps_options.js'],
+          'tmp/custom_options.js': ['tmp/custom_options.js'],
+          'tmp/wrap_options.js': ['tmp/wrap_options.js'],
+          'tmp/custom_wrap_options.js': ['tmp/custom_wrap_options.js'],
+          'tmp/global_constants_options.js': ['tmp/global_constants_options.js'],
+          'tmp/template_options.js': ['tmp/template_options.js'],
+          'tmp/string_constants_options.js': ['tmp/string_constants_options.js'],
+          'tmp/source_serializer_options.js': ['tmp/source_serializer_options.js'],
+          'tmp/var_options.js': ['tmp/var_options.js']
         }
       }
     },
@@ -186,11 +234,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-bump');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'ngconstant', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'ngconstant', 'uglify', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
