@@ -85,7 +85,16 @@ module.exports = function (grunt) {
     // Merge target configuration in global definition
     _.forEach(['constants', 'values'], function (key) {
       var resolve = _.bind(resolveKey, this, key);
-      _.merge(resolve(options), resolve(this.data));
+      _.merge(resolve(options), resolve(this.data), function (a, b) {
+        if (b && b.hasOwnProperty('vars')) { // ugly hack to keep global constants 'clean', i.e. strings
+          for (var prop in a) {
+            a[prop] = JSON.stringify(a[prop], function (key, value) {
+              if (typeof value === 'string') return value;
+              return value;
+            });
+          }
+        }
+      });
     }, this);
 
     // Transform the data and create the module string
@@ -93,10 +102,19 @@ module.exports = function (grunt) {
 
     var transformData = function dataTransformer(data) {
       return _.map(data, function (value, name) {
-        return {
-          name: name,
-          value: serializer.call(this, value, options.serializerOptions, options)
-        };
+        var returnObject = {};
+        if (value && value.vars) {
+          var vars = _.clone(value.vars);
+          delete value.vars;
+
+          returnObject.vars = vars;
+          returnObject.value = value;
+        } else {
+          returnObject.value = serializer.call(this, value, options.serializerOptions, options);
+        }
+        returnObject.name = name;
+
+        return returnObject;
       }, this);
     }.bind(this);
 
