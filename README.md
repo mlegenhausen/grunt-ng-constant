@@ -407,7 +407,7 @@ Create a custom target for each module and set the `dest`, `name`, `constants` a
 Till v1.0.0 this was supported natively by the plugin. Now you have to use the [grunt-js2coffee](https://github.com/jonschlinkert/grunt-js2coffee) plugin.
 
 #### Hey I like this project how can I help?
-Report bugs, propose new features or simply star the project that shows me that are people are interessted in this project.
+Report bugs, propose new features or simply star the project that shows me that are people are interested in this project.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).

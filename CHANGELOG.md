@@ -42,7 +42,7 @@ Thanks to [dropshare](https://github.com/dropshape) and [ggalmazor](https://gith
 
 - Closed [#17](https://github.com/werk85/grunt-ng-constant/issues/17).
  
- # v0.4.6 
+# v0.4.6 
 
 - Closed [#16](https://github.com/werk85/grunt-ng-constant/issues/16). Global constants module option added to README.
  
