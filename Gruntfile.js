@@ -9,6 +9,7 @@
 'use strict';
 
 module.exports = function(grunt) {
+  var _ = require('lodash');
 
   // Project configuration.
   grunt.initConfig({
@@ -46,6 +47,11 @@ module.exports = function(grunt) {
         options: {
           dest: 'tmp/default_options.js',
           name: 'module1',
+          configMergeCustomizer: function (key, objValue, srcValue) {
+            if (_.isUndefined(objValue) && _.isUndefined(srcValue)) {
+              return null;
+            }
+          }
         },
         constants: {
           'constant1': {

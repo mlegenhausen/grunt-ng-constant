@@ -1,3 +1,21 @@
+# 2.0.0
+
+- Dependencies updated. Especially lodash 4.0.0 is used now.
+- New `configMergeCustomizer` added.
+
+## Breaking Change:
+- `undefined` values are removed from the merged global and target configuration. You can get back your `undefined` values by using the following code:
+
+```js
+configMergeCustomizer: function (key, objValue, srcValue) {
+    if (_.isUndefined(objValue) && _.isUndefined(srcValue)) {
+        return null;
+    }
+}
+```
+
+This will replace all `undefined` values with `null`. The signature is the same as from `_.mergeWith` with a additional first parameter `key` which can be the value `'constants'` or `'values'`. See the [_.mergeWith](https://lodash.com/docs#mergeWith) documentation for further informations.
+
 # v1.1.0
 
 - Template stings in the `ngconstant` configuration does now support grunts variable interpolation. [#49](https://github.com/werk85/grunt-ng-constant/pull/49)

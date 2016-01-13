@@ -13,16 +13,17 @@ var path = require('path');
 var _ = require('lodash');
 var jju = require('jju');
 var toSource = require('tosource');
+var merge = require('merge');
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\'use strict\';\n\n{%= __ngModule %}\n})(angular);';
 var TEMPLATE_PATH = path.join(__dirname, 'constant.tpl.ejs');
 var SERIALIZERS = {
   'jju': function jjuSerializer(obj, serializerOptions) {
-    return _.isUndefined(obj) ? 'undefined' : jju.stringify(obj, serializerOptions);
+    return jju.stringify(obj, serializerOptions);
   },
   'json': function jsonSerializer(obj, serializerOptions) {
-    return _.isUndefined(obj) ? 'undefined' : JSON.stringify(obj, serializerOptions.replacer, serializerOptions.space);
+    return JSON.stringify(obj, serializerOptions.replacer, serializerOptions.space);
   },
   'source': function sourceSerializer(obj, serializerOptions) {
     return toSource(obj, serializerOptions.filter, serializerOptions.indent, serializerOptions.startingIndent);
@@ -75,6 +76,7 @@ module.exports = function (grunt) {
         indent: '',
         no_trailing_comma: true
       },
+      configMergeCustomizer: _.noop,
       constants: {},
       values: {}
     });
@@ -85,8 +87,9 @@ module.exports = function (grunt) {
     // Merge target configuration in global definition
     _.forEach(['constants', 'values'], function (key) {
       var resolve = _.bind(resolveKey, this, key);
-      _.merge(resolve(options), resolve(this.data));
-    }, this);
+      var customizer = options.configMergeCustomizer.bind(this, key);
+      _.mergeWith(resolve(options), resolve(this.data), customizer);
+    }.bind(this));
 
     // Transform the data and create the module string
     var serializer = resolveSerializer(options.serializer);
@@ -97,7 +100,7 @@ module.exports = function (grunt) {
           name: name,
           value: serializer.call(this, value, options.serializerOptions, options)
         };
-      }, this);
+      }.bind(this));
     }.bind(this);
 
     var result = grunt.template.process(options.template, {

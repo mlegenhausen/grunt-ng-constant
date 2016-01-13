@@ -3,7 +3,7 @@
 > Plugin for dynamic generation of angular constant and value modules.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `~0.4.5`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -130,6 +130,10 @@ Type: `String`
 Default value: `ngconstant` which sets the template delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
 Optional
 
+#### options.configMergeCustomizer
+Type: `Function`
+Default value: `_.noop` which allows to customize the merge of global and target configuration. The function has the signature `(key, objValue, srcValue, key, object, source, stack)`. The `key` parameter can be `'constants'` or `'values'`. The rest of the parameters is identical to [_.mergeWith](https://lodash.com/docs#mergeWith).
+Optional
 
 ### Usage Examples
 
