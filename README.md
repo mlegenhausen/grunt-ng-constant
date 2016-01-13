@@ -58,49 +58,61 @@ angular.module('config', [])
 
 ### Options
 
-#### options.name
+#### name
 Type: `String`
+
 Required
 
 The name of the constant module used in your angular project.
 
-#### options.dest
+#### dest
 Type: `String`
+
 Required
 
 The path where the generated constant module should be saved.
 
-#### options.deps
+#### deps
 Type: `Array` or `Boolean`
+
 Default value: `[]`
+
 Optional
 
 An array that specifies the default dependencies a module should have. When your module should not have any modules, so you can append the constants to an already existing one, you can set `deps` to `false`.
 
-#### options.constants
+#### constants
 Type: `Object`, `String`, `Function`
+
 Default value: `{}`
+
 Optional
 
 If it is an object it gets automatically merged in all target `constants` definitions. This option should be used when you need a global `constants` definition for all your targets.
 
-#### options.values
+#### values
 Type: `Object`, `String`, `Function`
+
 Default value: `{}`
+
 Optional
 
 If it is an object it gets automatically merged in all target `values` definitions. This option should be used when you need a global `values` definition for all your targets.
 
-#### options.wrap
+#### wrap
 Type: `String` or `Boolean`
+
 Default value: `false`
+
 Optional
 
 A boolean to activate or deactivate the automatic wrapping. A string which will wrap the result of file, use the `{%= __ngModule %}` variable to indicate where to put the generated module content. See the "Custom Wrap Option" section for further informations.
 
-#### options.serializer
+#### serializer
 Type: `String|Function`
+
 Default value: `jju`
+
 Optional
 
 Available options:
@@ -111,29 +123,39 @@ Available options:
 
 If you want to define your own serializer use `function(obj, serializerOptions, options) { return /* your serialized string */ }`. `this` will be set to the plugin context.
 
-#### options.serializerOptions
+#### serializerOptions
 Type: `Object`
+
 Default value: `{indent: '', no_trailing_comma: true}`
+
 Optional
 
 Use this option for setting specific options for the given serializer. The default config configures the [jju](https://github.com/rlidwka/jju) stringify method. See the documentation for more information of possible options.
 
-#### options.template
+#### template
 Type: `String`
+
 Default value: `grunt.file.read('constant.tpl.ejs')`
+
 Optional
 
 Custom template for creating the output constants file. Defaults to the default constants template file if none provided.
 
-#### options.delimiters
+#### delimiters
 Type: `String`
-Default value: `ngconstant` which sets the template delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or get unwanted behaviour.
+
+Default value: `'ngconstant'` which sets the template delimiters to `{%` and `%}`. Make sure that you do not use the same delimiters as your grunt configuration or you get an unwanted behavior.
+
 Optional
 
-#### options.configMergeCustomizer
+#### configMergeCustomizer
 Type: `Function`
-Default value: `_.noop` which allows to customize the merge of global and target configuration. The function has the signature `(key, objValue, srcValue, key, object, source, stack)`. The `key` parameter can be `'constants'` or `'values'`. The rest of the parameters is identical to [_.mergeWith](https://lodash.com/docs#mergeWith).
+
+Default value: `_.noop`
+
 Optional
+
+Allows to customize the merge of global and target configuration. The function has the signature `(key, objValue, srcValue, key, object, source, stack)`. The `key` parameter can be `'constants'` or `'values'`. The rest of the parameters is identical to [_.mergeWith](https://lodash.com/docs#mergeWith).
 
 ### Usage Examples
 
@@ -411,5 +433,3 @@ Report bugs, propose new features or simply star the project that shows me that 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/b4bfcf00e0466f3f65e49548850d5d6e "githalytics.com")](http://githalytics.com/werk85/grunt-ng-constant)

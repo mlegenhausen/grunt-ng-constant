@@ -7,9 +7,11 @@
 - `undefined` values are removed from the merged global and target configuration. You can get back your `undefined` values by using the following code:
 
 ```js
-configMergeCustomizer: function (key, objValue, srcValue) {
-    if (_.isUndefined(objValue) && _.isUndefined(srcValue)) {
-        return null;
+options: {
+    configMergeCustomizer: function (key, objValue, srcValue) {
+        if (_.isUndefined(objValue) && _.isUndefined(srcValue)) {
+            return null;
+        }
     }
 }
 ```
