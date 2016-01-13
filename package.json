@@ -30,6 +30,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "0.0.15",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-nodeunit": "^0.4.1"
@@ -50,7 +51,7 @@
     "generator"
   ],
   "dependencies": {
-    "jju": "^1.0.4",
+    "jju": "^1.2.1",
     "lodash": "~2.4.1",
     "tosource": "^0.1.1"
   }
