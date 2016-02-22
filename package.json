@@ -30,7 +30,6 @@
   "devDependencies": {
     "grunt": "1.0.0-rc1",
     "grunt-bump": "^0.7.0",
-    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-nodeunit": "^0.4.1"
