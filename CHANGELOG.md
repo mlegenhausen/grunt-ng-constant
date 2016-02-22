@@ -1,3 +1,8 @@
+# 2.0.1
+
+ - Dependencies updated.
+ - Grunt 1.0.0 support added.
+
 # 2.0.0
 
 - Dependencies updated. Especially lodash 4.0.0 is used now.
