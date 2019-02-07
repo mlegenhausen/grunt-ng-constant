@@ -14,12 +14,7 @@
   "bugs": {
     "url": "https://github.com/werk85/grunt-ng-constant/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/werk85/grunt-ng-constant/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.10.0"
@@ -28,11 +23,11 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt": "1.0.0-rc1",
-    "grunt-bump": "^0.7.0",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-nodeunit": "^0.4.1"
+    "grunt": "^1.0.3",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-nodeunit": "^2.0.0"
   },
   "peerDependencies": {
     "grunt": ">=0.4.0"
