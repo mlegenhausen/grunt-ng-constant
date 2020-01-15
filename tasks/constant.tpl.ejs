@@ -1,7 +1,39 @@
-angular.module('{%- moduleName %}'{% if (deps) { %}, [{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
+angular.module('{%- moduleName %}'{% if (deps) { %},
+[{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
+//add constants to module
 {% constants.forEach(function (constant) { %}
 .constant('{%- constant.name %}', {%= constant.value %})
-{% }); values.forEach(function (value) { %}
+{% }); %}
+
+//add values to module
+{%values.forEach(function (value) { %}
 .value('{%- value.name %}', {%= value.value %})
 {% }) %}
-;
+
+//build a provider for module
+.provider('config', function () {
+  var constantList = {};
+  var valueList = {};
+  return {
+    setConstant: function (key, value) {constantList[key] = value;},
+    setValue: function (key, value) {valueList[key] = value;},
+    getConstant: function (key) {return constantList[key];},
+    getValue: function (key) {return valueList[key];},
+    $get: function () {
+      return {
+        constants: constantList,
+        values: valueList
+        }
+    }
+  }
+})
+//configure
+.config(function (configProvider) {
+  {% constants.forEach(function (constant) {%}
+  configProvider.setConstant('{%- constant.name %}', {%= constant.value %});
+  {%});%}
+
+  {% values.forEach(function (value) {%}
+  configProvider.setValue('{%- value.name %}', {%= value.value %});
+  {%});%}
+});
