@@ -27,7 +27,7 @@ angular.module('{%- moduleName %}'{% if (deps) { %},[{%= deps.map(function (name
   }
 })
 //configure
-.config(function (configProvider) {
+.config([ "configProvider", function (configProvider) {
   {% constants.forEach(function (constant) {%}
   configProvider.setConstant('{%- constant.name %}', {%= constant.value %});
   {%});%}
@@ -35,4 +35,4 @@ angular.module('{%- moduleName %}'{% if (deps) { %},[{%= deps.map(function (name
   {% values.forEach(function (value) {%}
   configProvider.setValue('{%- value.name %}', {%= value.value %});
   {%});%}
-});
+}]);
