@@ -1,5 +1,4 @@
-angular.module('{%- moduleName %}'{% if (deps) { %},
-[{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
+angular.module('{%- moduleName %}'{% if (deps) { %},[{%= deps.map(function (name) { return '\'' + name + '\'' }).join(', ') %}]{% } %})
 //add constants to module
 {% constants.forEach(function (constant) { %}
 .constant('{%- constant.name %}', {%= constant.value %})
