@@ -47,7 +47,7 @@
   "dependencies": {
     "jju": "^1.3.0",
     "lodash": "^4.5.1",
-    "merge": "^1.2.1",
+    "merge": "^2.1.1",
     "tosource": "^1.0.0"
   }
 }
