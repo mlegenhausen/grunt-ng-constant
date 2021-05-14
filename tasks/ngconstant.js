@@ -13,7 +13,6 @@ var path = require('path');
 var _ = require('lodash');
 var jju = require('jju');
 var toSource = require('tosource');
-var merge = require('merge');
 
 var MODULE_NAME = 'ngconstant';
 var DEFAULT_WRAP = '(function(angular, undefined) {\n\'use strict\';\n\n{%= __ngModule %}\n})(angular);';

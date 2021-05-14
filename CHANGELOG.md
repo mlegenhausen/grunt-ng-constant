@@ -1,3 +1,11 @@
+# 2.0.3
+ - Unused dependency on `merge` removed.
+ - Dependency updates to fix  potential security vulnerabilities.
+
+# 2.0.2
+
+ - Dependencies updated.
+
 # 2.0.1
 
  - Dependencies updated.
